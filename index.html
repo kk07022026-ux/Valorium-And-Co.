@@ -78,7 +78,7 @@
             color: var(--gold);
         }
 
-        /* Hero Section */
+        /* Hero Section with Professional Luxury Background */
         .hero {
             height: 100vh;
             display: flex;
@@ -87,7 +87,8 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            background: linear-gradient(rgba(7,7,7,0.65), rgba(7,7,7,0.85)), url('https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background: linear-gradient(rgba(7,7,7,0.75), rgba(7,7,7,0.9)), url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            position: relative;
         }
 
         .hero h1 {
@@ -417,10 +418,10 @@
         </div>
     </section>
 
-    <!-- Client Review Submission Form (Sends directly via WhatsApp to Admin) -->
+    <!-- Client Review Submission Form -->
     <section class="review-section" id="client-review">
         <div class="review-container">
-            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 25px;">Client Review Form</h2>
+            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 25px;">Client Feedback Form</h2>
             <form id="reviewForm">
                 <div class="form-group">
                     <label for="clientName">Your Name</label>
@@ -439,16 +440,32 @@
         </div>
     </section>
 
-    <!-- Footer with Full Brand Name -->
+    <!-- Footer -->
     <footer>
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Interactive Scripts -->
-    <script>
-        const phoneNo = "918982687911";
+    <!-- Firebase & Interactive Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyMFrbvgvFTJCgsi77N_OSZFvF5zK09aAkw",
+            authDomain: "valorium-c8069.firebaseapp.com",
+            projectId: "valorium-c8069",
+            storageBucket: "valorium-c8069.appspot.com",
+            messagingSenderId: "558757860637",
+            appId: "1:558757860637:web:858761f23b1793364e3df4",
+            measurementId: "G-Z3MP25TIRY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
         // Dynamic WhatsApp Link Generator for Products
+        const phoneNo = "918982687911";
         document.querySelectorAll('.product-card').forEach(card => {
             const productName = card.querySelector('h3').innerText;
             const sizeButtons = card.querySelectorAll('.size-btn');
@@ -492,9 +509,11 @@
             });
         });
 
-        // Review Form Submission via WhatsApp (Instant & 100% Working)
+        // Review Form Submission to Firebase
         const reviewForm = document.getElementById('reviewForm');
-        reviewForm.addEventListener('submit', (e) => {
+        const submitReviewBtn = document.getElementById('submitReviewBtn');
+
+        reviewForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('clientName').value.trim();
             const number = document.getElementById('clientNumber').value.trim();
@@ -502,9 +521,25 @@
 
             if (!name || !number || !review) return;
 
-            const waMessage = encodeURIComponent(`New Client Review:\n\nName: ${name}\nNumber: ${number}\nReview: ${review}`);
-            window.open(`https://wa.me/${phoneNo}?text=${waMessage}`, '_blank');
-            reviewForm.reset();
+            submitReviewBtn.disabled = true;
+            submitReviewBtn.textContent = "Submitting...";
+
+            try {
+                await addDoc(collection(db, "comments"), {
+                    name: name,
+                    number: number,
+                    review: review,
+                    createdAt: new Date()
+                });
+                alert("Thank you! Your review has been submitted successfully.");
+                reviewForm.reset();
+            } catch (error) {
+                console.error("Error submitting review: ", error);
+                alert("Failed to submit. Please check your internet connection.");
+            } finally {
+                submitReviewBtn.disabled = false;
+                submitReviewBtn.textContent = "Submit Review";
+            }
         });
     </script>
 </body>
