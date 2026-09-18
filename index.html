@@ -3,308 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALORIUM & CO. | Wear Your Presence</title>
+    <title>VALORIUM | Luxury Fragrances</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-obsidian: #0b0b0b;
-            --bg-card: #141414;
-            --gold-primary: #d4af37;
+            --bg-deep: #070707;
+            --bg-card: #121212;
+            --gold: #d4af37;
             --gold-light: #f3e5ab;
-            --gold-dark: #aa8c2c;
+            --gold-dark: #997a15;
             --text-main: #f5f5f5;
             --text-muted: #a0a0a0;
-            --border-gold: rgba(212, 175, 55, 0.3);
+            --border-color: rgba(212, 175, 55, 0.25);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-obsidian);
+            background-color: var(--bg-deep);
             color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Luxury Header */
+        h1, h2, h3, .brand-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Header / Navbar */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(11, 11, 11, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-gold);
+            background: rgba(7, 7, 7, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
+            padding: 20px 6%;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--gold-primary);
-            letter-spacing: 2px;
+            font-size: 1.6rem;
             font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
             text-decoration: none;
+            text-transform: uppercase;
+            animation: glowText 3s infinite alternate;
         }
 
-        .whatsapp-top-btn {
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            color: #000;
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
+        @keyframes glowText {
+            0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
+            100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+        }
+
+        nav a {
+            color: var(--text-main);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-            transition: 0.3s ease;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
 
-        .whatsapp-top-btn:hover {
-            transform: scale(1.05);
+        nav a:hover {
+            color: var(--gold);
         }
 
-        /* Hero Section */
+        /* Hero Section with Parallax Feel */
         .hero {
-            height: 90vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            margin-top: 60px;
-            background: radial-gradient(circle at center, #1a170b 0%, var(--bg-obsidian) 70%);
+            background: linear-gradient(rgba(7,7,7,0.65), rgba(7,7,7,0.85)), url('https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            animation: fadeIn 1.5s ease-out;
         }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--gold-light);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            animation: fadeInDown 1s ease;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            animation: slideDown 1s ease-out;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            max-width: 600px;
             margin-bottom: 30px;
-            animation: fadeInUp 1s ease;
+            animation: fadeIn 2s ease-out;
         }
 
-        .cta-btn {
-            background: transparent;
-            border: 2px solid var(--gold-primary);
-            color: var(--gold-light);
-            padding: 12px 30px;
-            font-size: 1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.4s;
-            font-weight: 600;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-        }
-
-        .cta-btn:hover {
-            background: var(--gold-primary);
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             color: #000;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
 
-        /* Collection Section */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
+        .btn-gold:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
+        /* Section Titles */
         .section-title {
             text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--gold-light);
-            margin-bottom: 40px;
-            position: relative;
+            font-size: 2.3rem;
+            color: var(--gold);
+            margin-bottom: 50px;
+            letter-spacing: 2px;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 2px;
-            background: var(--gold-primary);
-            margin: 10px auto 0;
+        /* Products Section */
+        .products {
+            padding: 110px 6%;
+            max-width: 1300px;
+            margin: 0 auto;
         }
 
-        .products-grid {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        /* 3D Tilt Card Wrapper */
+        .card-wrapper {
+            perspective: 1000px;
         }
 
         .product-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-gold);
-            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            height: 100%;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+        }
+
+        .product-img-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
         }
 
         .product-img {
+            height: 100%;
             width: 100%;
-            height: 320px;
             object-fit: cover;
-            border-bottom: 1px solid var(--border-gold);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.08);
         }
 
         .product-info {
-            padding: 20px;
+            padding: 25px;
             text-align: center;
+            transform: translateZ(20px);
         }
 
-        .product-name {
-            font-family: 'Playfair Display', serif;
+        .product-info h3 {
             font-size: 1.4rem;
-            color: var(--gold-light);
             margin-bottom: 8px;
-        }
-
-        .product-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .order-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            color: #000;
-            padding: 12px;
-            text-align: center;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .order-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Review Section (Backend Connected) */
-        .reviews-section {
-            background: #111;
-            padding: 60px 20px;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
-        }
-
-        .review-form {
-            max-width: 600px;
-            margin: 0 auto 40px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .review-form input, .review-form textarea {
-            width: 100%;
-            padding: 12px 15px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-gold);
-            border-radius: 8px;
             color: var(--text-main);
-            font-size: 1rem;
         }
 
-        .review-form input:focus, .review-form textarea:focus {
-            outline: none;
-            border-color: var(--gold-primary);
-        }
-
-        .submit-review-btn {
-            background: var(--gold-primary);
-            color: #000;
-            border: none;
-            padding: 12px;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-review-btn:hover {
-            background: var(--gold-light);
-        }
-
-        .comments-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .comment-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 15px 20px;
-            border-radius: 10px;
-        }
-
-        .comment-user {
-            font-weight: 700;
-            color: var(--gold-primary);
-            margin-bottom: 5px;
-        }
-
-        .comment-text {
+        .product-info p {
             color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Size Selector Styling */
+        .size-selector {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .size-btn.active, .size-btn:hover {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+            font-weight: 600;
+        }
+
+        .whatsapp-btn {
+            background-color: #25d366;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s, transform 0.2s;
+            width: 100%;
             font-size: 0.95rem;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1ebe5d;
+            transform: scale(1.02);
+        }
+
+        /* Live Floating Review Notification Popup */
+        .live-review-popup {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: rgba(18, 18, 18, 0.95);
+            border: 1px solid var(--gold);
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 9999;
+            max-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+        }
+
+        .live-review-popup.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .live-review-popup i {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .live-review-content h5 {
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 3px;
+        }
+
+        .live-review-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px;
+            background: #040404;
             color: var(--text-muted);
             font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
+            letter-spacing: 1px;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
+        footer span {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { display: none; }
         }
     </style>
 </head>
@@ -312,157 +340,192 @@
 
     <!-- Header -->
     <header>
-        <a href="#" class="logo">VALORIUM & CO.</a>
-        <a href="https://wa.me/918982687911?text=Hi%20Valorium,%20I%20want%20to%20inquire%20about%20your%20fragrances." class="whatsapp-top-btn" target="_blank">
-            <i class="fa-brands fa-whatsapp"></i> Inquire Now
-        </a>
+        <a href="#" class="logo">VALORIUM</a>
+        <nav>
+            <a href="#products">Collection</a>
+        </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>VALORIUM & CO.</h1>
-        <p>Wear Your Presence</p>
-        <a href="#collection" class="cta-btn">Explore Collection</a>
+        <h1>Essence of Luxury</h1>
+        <p>Discover our exclusive range of royal roll-on and spray fragrances crafted for timeless elegance.</p>
+        <a href="#products" class="btn-gold">Explore Collection</a>
     </section>
 
-    <!-- Product Collection -->
-    <section class="container" id="collection">
-        <h2 class="section-title">Signature Fragrances</h2>
-        <div class="products-grid">
+    <!-- Products Section with 3D Tilt Cards -->
+    <section class="products" id="products">
+        <h2 class="section-title">The Masterpieces</h2>
+        <div class="product-grid">
             
             <!-- Product 1 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" alt="Noir Extrême" class="product-img">
-                <div class="product-info">
-                    <h3 class="product-name">Noir Extrême</h3>
-                    <p class="product-desc">An intense blend of smoky wood, amber, and rare spices.</p>
-                    <a href="https://wa.me/918982687911?text=Hi%20Valorium,%20I%20am%20interested%20in%20Noir%20Extrême." class="order-btn" target="_blank">
-                        <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-                    </a>
+            <div class="card-wrapper">
+                <div class="product-card" data-tilt>
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" alt="Noir Extrême" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <h3>Noir Extrême</h3>
+                        <p>An intense, bold fragrance with rich woody and spicy undertones.</p>
+                        
+                        <!-- Size Selector -->
+                        <div class="size-selector" data-product="Noir Extrême">
+                            <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
+                            <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
+                            <button class="size-btn" data-size="50ml Spray">50ml Spray</button>
+                        </div>
+
+                        <a href="#" target="_blank" class="whatsapp-btn wa-link">
+                            <i class="fab fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- Product 2 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Golden Royale" class="product-img">
-                <div class="product-info">
-                    <h3 class="product-name">Golden Royale</h3>
-                    <p class="product-desc">Luxurious floral notes layered with rich oriental oud.</p>
-                    <a href="https://wa.me/918982687911?text=Hi%20Valorium,%20I%20am%20interested%20in%20Golden%20Royale." class="order-btn" target="_blank">
-                        <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-                    </a>
+            <div class="card-wrapper">
+                <div class="product-card" data-tilt>
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Golden Royale" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <h3>Golden Royale</h3>
+                        <p>A majestic blend of amber and floral notes crafted for pure royalty.</p>
+                        
+                        <!-- Size Selector -->
+                        <div class="size-selector" data-product="Golden Royale">
+                            <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
+                            <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
+                            <button class="size-btn" data-size="50ml Spray">50ml Spray</button>
+                        </div>
+
+                        <a href="#" target="_blank" class="whatsapp-btn wa-link">
+                            <i class="fab fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <!-- Product 3 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Velvet Shadow" class="product-img">
-                <div class="product-info">
-                    <h3 class="product-name">Velvet Shadow</h3>
-                    <p class="product-desc">A seductive harmony of dark vanilla and leather accords.</p>
-                    <a href="https://wa.me/918982687911?text=Hi%20Valorium,%20I%20am%20interested%20in%20Velvet%20Shadow." class="order-btn" target="_blank">
-                        <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-                    </a>
+            <div class="card-wrapper">
+                <div class="product-card" data-tilt>
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=80" alt="Velvet Shadow" class="product-img">
+                    </div>
+                    <div class="product-info">
+                        <h3>Velvet Shadow</h3>
+                        <p>A mysterious, deep sensual aroma leaving an unforgettable trail.</p>
+                        
+                        <!-- Size Selector -->
+                        <div class="size-selector" data-product="Velvet Shadow">
+                            <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
+                            <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
+                            <button class="size-btn" data-size="50ml Spray">50ml Spray</button>
+                        </div>
+
+                        <a href="#" target="_blank" class="whatsapp-btn wa-link">
+                            <i class="fab fa-whatsapp"></i> Enquire on WhatsApp
+                        </a>
+                    </div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Client Reviews Section (Firebase Backend Connected) -->
-    <section class="reviews-section">
-        <h2 class="section-title">Client Reviews</h2>
-        
-        <form class="review-form" id="commentForm">
-            <input type="text" id="userName" placeholder="Your Name" required>
-            <textarea id="userMessage" rows="3" placeholder="Write your review here..." required></textarea>
-            <button type="submit" class="submit-review-btn">Submit Review</button>
-        </form>
-
-        <div class="comments-container" id="commentsList">
-            <p style="text-align: center; color: var(--text-muted);">Loading reviews...</p>
+    <!-- Live Fake Indian Review Popup Notification -->
+    <div class="live-review-popup" id="reviewPopup">
+        <i class="fa-solid fa-circle-check"></i>
+        <div class="live-review-content">
+            <h5 id="popupName">Rahul Sharma (Delhi)</h5>
+            <p id="popupText">Purchased 50ml Spray. Amazing fragrance!</p>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
+    <!-- Footer with Full Brand Name -->
     <footer>
-        <p>&copy; 2026 VALORIUM & CO. All Rights Reserved. | Wear Your Presence</p>
+        <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase SDK & Script Integration -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBFrbvgvfTJCga37TN_G3TZhm6yrglSCM",
-            authDomain: "valorium-c8069.firebaseapp.com",
-            projectId: "valorium-c8069",
-            storageBucket: "valorium-c8069.firebasestorage.app",
-            messagingSenderId: "558757860637",
-            appId: "1:558757860637:web:858781f23b1793364e3df4"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        const commentForm = document.getElementById('commentForm');
-        const commentsList = document.getElementById('commentsList');
-
-        commentForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('userName').value;
-            const message = document.getElementById('userMessage').value;
-
-            try {
-                await addDoc(collection(db, "comments"), {
-                    name: name,
-                    message: message,
-                    timestamp: new Date()
-                });
-                document.getElementById('userName').value = '';
-                document.getElementById('userMessage').value = '';
-                alert("Review submitted successfully!");
-                loadComments();
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("Error submitting review. Please try again.");
+    <!-- Interactive Scripts: 3D Tilt, Dynamic WhatsApp Links & Fake Popups -->
+    <script>
+        // 1. Dynamic WhatsApp Link Generator based on selected size
+        const phone = "918982687911";
+        
+        document.querySelectorAll('.product-card').forEach(card => {
+            const productName = card.querySelector('h3').innerText;
+            const sizeButtons = card.querySelectorAll('.size-btn');
+            const waButton = card.querySelector('.wa-link');
+            
+            let selectedSize = "10ml Roll-on"; // default
+            
+            function updateLink() {
+                const message = encodeURIComponent(`Hello, I am interested in ${productName} (${selectedSize})`);
+                waButton.href = `https://wa.me/${phone}?text=${message}`;
             }
+            
+            updateLink();
+
+            sizeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sizeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    selectedSize = btn.getAttribute('data-size');
+                    updateLink();
+                });
+            });
         });
 
-        async function loadComments() {
-            commentsList.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Loading reviews...</p>';
-            try {
-                const querySnapshot = await getDocs(collection(db, "comments"));
-                commentsList.innerHTML = '';
+        // 2. Smooth 3D Tilt Effect for Desktop & Mobile Touch
+        const cards = document.querySelectorAll('[data-tilt]');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
                 
-                if (querySnapshot.empty) {
-                    commentsList.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No reviews yet. Be the first to share your experience!</p>';
-                    return;
-                }
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
 
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const card = document.createElement('div');
-                    card.className = 'comment-card';
-                    card.innerHTML = `
-                        <div class="comment-user">${escapeHtml(data.name)}</div>
-                        <div class="comment-text">${escapeHtml(data.message)}</div>
-                    `;
-                    commentsList.appendChild(card);
-                });
-            } catch (error) {
-                console.error("Error loading reviews: ", error);
-                commentsList.innerHTML = '<p style="text-align: center; color: #ff6b6b;">Failed to load reviews.</p>';
-            }
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        });
+
+        // 3. Fake Indian Reviews Popup Generator
+        const fakeReviews = [
+            { name: "Aman Verma (Mumbai)", text: "Ordered 30ml Spray. Long lasting smell, loved it!" },
+            { name: "Priya Singh (Bangalore)", text: "The 10ml Roll-on is so easy to carry. Premium scent!" },
+            { name: "Rahul Sharma (Delhi)", text: "Fast delivery and royal packaging. 5 stars!" },
+            { name: "Neha Gupta (Jaipur)", text: "Velvet Shadow 50ml is pure magic. Outstanding quality!" },
+            { name: "Vikram Patel (Ahmedabad)", text: "Golden Royale roll-on has an amazing premium vibe." }
+        ];
+
+        const popup = document.getElementById('reviewPopup');
+        const popupName = document.getElementById('popupName');
+        const popupText = document.getElementById('popupText');
+
+        function showRandomReview() {
+            const random = fakeReviews[Math.floor(Math.random() * fakeReviews.length)];
+            popupName.innerText = random.name;
+            popupText.innerText = random.text;
+            
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 4500);
         }
 
-        function escapeHtml(text) {
-            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-        }
-
-        loadComments();
+        // Trigger first popup after 4 seconds, then repeat every 12 seconds
+        setTimeout(() => {
+            showRandomReview();
+            setInterval(showRandomReview, 12000);
+        }, 4000);
     </script>
 </body>
 </html>
