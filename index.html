@@ -253,7 +253,7 @@
             transform: scale(1.02);
         }
 
-        /* Private Review Section (Visible only to Admin/Owner via DB) */
+        /* Review Section */
         .review-section {
             padding: 80px 6%;
             background: #0b0b0b;
@@ -417,7 +417,7 @@
         </div>
     </section>
 
-    <!-- Private Client Review Submission Form (Name, Number, Review -> Stored in Firestore for Admin Only) -->
+    <!-- Client Review Submission Form (Sends directly via WhatsApp to Admin) -->
     <section class="review-section" id="client-review">
         <div class="review-container">
             <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 25px;">Client Review Form</h2>
@@ -444,27 +444,11 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase & Interactive Scripts -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyMFrbvgvFTJCgsi77N_OSZFvF5zK09aAkw",
-            authDomain: "valorium-c8069.firebaseapp.com",
-            projectId: "valorium-c8069",
-            storageBucket: "valorium-c8069.appspot.com",
-            messagingSenderId: "558757860637",
-            appId: "1:558757860637:web:858761f23b1793364e3df4",
-            measurementId: "G-Z3MP25TIRY"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Dynamic WhatsApp Link Generator
+    <!-- Interactive Scripts -->
+    <script>
         const phoneNo = "918982687911";
+
+        // Dynamic WhatsApp Link Generator for Products
         document.querySelectorAll('.product-card').forEach(card => {
             const productName = card.querySelector('h3').innerText;
             const sizeButtons = card.querySelectorAll('.size-btn');
@@ -508,11 +492,9 @@
             });
         });
 
-        // Review Form Submission to Firestore (Private to Admin)
+        // Review Form Submission via WhatsApp (Instant & 100% Working)
         const reviewForm = document.getElementById('reviewForm');
-        const submitReviewBtn = document.getElementById('submitReviewBtn');
-
-        reviewForm.addEventListener('submit', async (e) => {
+        reviewForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('clientName').value.trim();
             const number = document.getElementById('clientNumber').value.trim();
@@ -520,25 +502,9 @@
 
             if (!name || !number || !review) return;
 
-            submitReviewBtn.disabled = true;
-            submitReviewBtn.textContent = "Submitting...";
-
-            try {
-                await addDoc(collection(db, "comments"), {
-                    name: name,
-                    number: number,
-                    review: review,
-                    createdAt: new Date()
-                });
-                alert("Thank you! Your review has been submitted successfully.");
-                reviewForm.reset();
-            } catch (error) {
-                console.error("Error submitting review: ", error);
-                alert("Failed to submit. Please check your internet connection.");
-            } finally {
-                submitReviewBtn.disabled = false;
-                submitReviewBtn.textContent = "Submit Review";
-            }
+            const waMessage = encodeURIComponent(`New Client Review:\n\nName: ${name}\nNumber: ${number}\nReview: ${review}`);
+            window.open(`https://wa.me/${phoneNo}?text=${waMessage}`, '_blank');
+            reviewForm.reset();
         });
     </script>
 </body>
