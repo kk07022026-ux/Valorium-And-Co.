@@ -64,12 +64,6 @@
             letter-spacing: 3px;
             text-decoration: none;
             text-transform: uppercase;
-            animation: glowText 3s infinite alternate;
-        }
-
-        @keyframes glowText {
-            0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
-            100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
         }
 
         nav a {
@@ -84,7 +78,7 @@
             color: var(--gold);
         }
 
-        /* Hero Section with Parallax Feel */
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -94,7 +88,6 @@
             text-align: center;
             padding: 0 20px;
             background: linear-gradient(rgba(7,7,7,0.65), rgba(7,7,7,0.85)), url('https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-            animation: fadeIn 1.5s ease-out;
         }
 
         .hero h1 {
@@ -102,7 +95,6 @@
             color: var(--gold);
             margin-bottom: 15px;
             letter-spacing: 4px;
-            animation: slideDown 1s ease-out;
         }
 
         .hero p {
@@ -110,7 +102,6 @@
             color: var(--text-muted);
             max-width: 600px;
             margin-bottom: 30px;
-            animation: fadeIn 2s ease-out;
         }
 
         .btn-gold {
@@ -121,10 +112,11 @@
             text-decoration: none;
             font-weight: 600;
             letter-spacing: 1.5px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.4s ease;
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            display: inline-block;
         }
 
         .btn-gold:hover {
@@ -154,7 +146,6 @@
             gap: 40px;
         }
 
-        /* 3D Tilt Card Wrapper */
         .card-wrapper {
             perspective: 1000px;
         }
@@ -214,7 +205,7 @@
             line-height: 1.5;
         }
 
-        /* Size Selector Styling */
+        /* Size Selector */
         .size-selector {
             margin-bottom: 20px;
             display: flex;
@@ -262,45 +253,50 @@
             transform: scale(1.02);
         }
 
-        /* Live Floating Review Notification Popup */
-        .live-review-popup {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background: rgba(18, 18, 18, 0.95);
-            border: 1px solid var(--gold);
-            padding: 15px 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 9999;
-            max-width: 300px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transform: translateY(120%);
-            opacity: 0;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+        /* Private Review Section (Visible only to Admin/Owner via DB) */
+        .review-section {
+            padding: 80px 6%;
+            background: #0b0b0b;
+            border-top: 1px solid var(--border-color);
         }
 
-        .live-review-popup.show {
-            transform: translateY(0);
-            opacity: 1;
+        .review-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
 
-        .live-review-popup i {
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
             color: var(--gold);
-            font-size: 1.5rem;
-        }
-
-        .live-review-content h5 {
             font-size: 0.9rem;
-            color: var(--gold);
-            margin-bottom: 3px;
+            font-weight: 500;
         }
 
-        .live-review-content p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-deep);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
         }
 
         /* Footer */
@@ -320,16 +316,6 @@
             font-weight: 600;
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             nav { display: none; }
@@ -343,6 +329,7 @@
         <a href="#" class="logo">VALORIUM</a>
         <nav>
             <a href="#products">Collection</a>
+            <a href="#client-review">Leave Review</a>
         </nav>
     </header>
 
@@ -368,7 +355,6 @@
                         <h3>Noir Extrême</h3>
                         <p>An intense, bold fragrance with rich woody and spicy undertones.</p>
                         
-                        <!-- Size Selector -->
                         <div class="size-selector" data-product="Noir Extrême">
                             <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
                             <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
@@ -392,7 +378,6 @@
                         <h3>Golden Royale</h3>
                         <p>A majestic blend of amber and floral notes crafted for pure royalty.</p>
                         
-                        <!-- Size Selector -->
                         <div class="size-selector" data-product="Golden Royale">
                             <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
                             <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
@@ -416,7 +401,6 @@
                         <h3>Velvet Shadow</h3>
                         <p>A mysterious, deep sensual aroma leaving an unforgettable trail.</p>
                         
-                        <!-- Size Selector -->
                         <div class="size-selector" data-product="Velvet Shadow">
                             <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
                             <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
@@ -433,35 +417,64 @@
         </div>
     </section>
 
-    <!-- Live Fake Indian Review Popup Notification -->
-    <div class="live-review-popup" id="reviewPopup">
-        <i class="fa-solid fa-circle-check"></i>
-        <div class="live-review-content">
-            <h5 id="popupName">Rahul Sharma (Delhi)</h5>
-            <p id="popupText">Purchased 50ml Spray. Amazing fragrance!</p>
+    <!-- Private Client Review Submission Form (Name, Number, Review -> Stored in Firestore for Admin Only) -->
+    <section class="review-section" id="client-review">
+        <div class="review-container">
+            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 25px;">Client Review Form</h2>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="clientName">Your Name</label>
+                    <input type="text" id="clientName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="clientNumber">Contact Number</label>
+                    <input type="tel" id="clientNumber" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="clientReviewText">Your Review</label>
+                    <textarea id="clientReviewText" rows="4" required placeholder="Write your review or feedback here..."></textarea>
+                </div>
+                <button type="submit" class="btn-gold" id="submitReviewBtn" style="width: 100%;">Submit Review</button>
+            </form>
         </div>
-    </div>
+    </section>
 
     <!-- Footer with Full Brand Name -->
     <footer>
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Interactive Scripts: 3D Tilt, Dynamic WhatsApp Links & Fake Popups -->
-    <script>
-        // 1. Dynamic WhatsApp Link Generator based on selected size
-        const phone = "918982687911";
-        
+    <!-- Firebase & Interactive Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyMFrbvgvFTJCgsi77N_OSZFvF5zK09aAkw",
+            authDomain: "valorium-c8069.firebaseapp.com",
+            projectId: "valorium-c8069",
+            storageBucket: "valorium-c8069.appspot.com",
+            messagingSenderId: "558757860637",
+            appId: "1:558757860637:web:858761f23b1793364e3df4",
+            measurementId: "G-Z3MP25TIRY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Dynamic WhatsApp Link Generator
+        const phoneNo = "918982687911";
         document.querySelectorAll('.product-card').forEach(card => {
             const productName = card.querySelector('h3').innerText;
             const sizeButtons = card.querySelectorAll('.size-btn');
             const waButton = card.querySelector('.wa-link');
             
-            let selectedSize = "10ml Roll-on"; // default
+            let selectedSize = "10ml Roll-on";
             
             function updateLink() {
                 const message = encodeURIComponent(`Hello, I am interested in ${productName} (${selectedSize})`);
-                waButton.href = `https://wa.me/${phone}?text=${message}`;
+                waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
             }
             
             updateLink();
@@ -476,7 +489,7 @@
             });
         });
 
-        // 2. Smooth 3D Tilt Effect for Desktop & Mobile Touch
+        // 3D Tilt Effect
         const cards = document.querySelectorAll('[data-tilt]');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -485,9 +498,8 @@
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -10;
-                const rotateY = ((x - centerX) / centerX) * 10;
-                
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
                 card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
 
@@ -496,36 +508,38 @@
             });
         });
 
-        // 3. Fake Indian Reviews Popup Generator
-        const fakeReviews = [
-            { name: "Aman Verma (Mumbai)", text: "Ordered 30ml Spray. Long lasting smell, loved it!" },
-            { name: "Priya Singh (Bangalore)", text: "The 10ml Roll-on is so easy to carry. Premium scent!" },
-            { name: "Rahul Sharma (Delhi)", text: "Fast delivery and royal packaging. 5 stars!" },
-            { name: "Neha Gupta (Jaipur)", text: "Velvet Shadow 50ml is pure magic. Outstanding quality!" },
-            { name: "Vikram Patel (Ahmedabad)", text: "Golden Royale roll-on has an amazing premium vibe." }
-        ];
+        // Review Form Submission to Firestore (Private to Admin)
+        const reviewForm = document.getElementById('reviewForm');
+        const submitReviewBtn = document.getElementById('submitReviewBtn');
 
-        const popup = document.getElementById('reviewPopup');
-        const popupName = document.getElementById('popupName');
-        const popupText = document.getElementById('popupText');
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('clientName').value.trim();
+            const number = document.getElementById('clientNumber').value.trim();
+            const review = document.getElementById('clientReviewText').value.trim();
 
-        function showRandomReview() {
-            const random = fakeReviews[Math.floor(Math.random() * fakeReviews.length)];
-            popupName.innerText = random.name;
-            popupText.innerText = random.text;
-            
-            popup.classList.add('show');
-            
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 4500);
-        }
+            if (!name || !number || !review) return;
 
-        // Trigger first popup after 4 seconds, then repeat every 12 seconds
-        setTimeout(() => {
-            showRandomReview();
-            setInterval(showRandomReview, 12000);
-        }, 4000);
+            submitReviewBtn.disabled = true;
+            submitReviewBtn.textContent = "Submitting...";
+
+            try {
+                await addDoc(collection(db, "comments"), {
+                    name: name,
+                    number: number,
+                    review: review,
+                    createdAt: new Date()
+                });
+                alert("Thank you! Your review has been submitted successfully.");
+                reviewForm.reset();
+            } catch (error) {
+                console.error("Error submitting review: ", error);
+                alert("Failed to submit. Please check your internet connection.");
+            } finally {
+                submitReviewBtn.disabled = false;
+                submitReviewBtn.textContent = "Submit Review";
+            }
+        });
     </script>
 </body>
 </html>
