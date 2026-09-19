@@ -100,7 +100,7 @@
             width: 100%;
         }
 
-        /* Advanced Hero Section with V-Logo Theme Background */
+        /* Hero Section with Royal Red Blurred V Aesthetic Background */
         .hero {
             height: 90vh;
             display: flex;
@@ -109,7 +109,8 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            background: linear-gradient(rgba(10,10,10,0.6), rgba(10,10,10,0.85)), url('[cite: 2]') no-repeat center center/cover;
+            background: linear-gradient(rgba(20, 0, 0, 0.65), rgba(10, 10, 10, 0.9)), url('[cite: 2]') no-repeat center center/cover;
+            filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.3));
             position: relative;
             animation: fadeIn 1.5s ease;
         }
@@ -194,60 +195,43 @@
             text-transform: uppercase;
         }
 
-        /* Single Product Showcase with 360 View */
+        /* Single Product Showcase with Royal Red Aesthetic Background */
         .single-product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            background: var(--bg-card);
+            background: radial-gradient(circle at center, #1f0505 0%, #141414 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 50px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(100, 0, 0, 0.2);
         }
 
-        /* 360 Viewer Styles */
-        .viewer-section {
+        /* Product Image Box */
+        .image-box {
             position: relative;
             width: 100%;
             height: 450px;
-            background: radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%);
+            background: radial-gradient(circle, #2a0808 0%, #0a0a0a 100%);
             border-radius: 8px;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: grab;
             border: 1px solid var(--border-color);
         }
 
-        .viewer-section:active {
-            cursor: grabbing;
-        }
-
-        .product-360-img {
+        .product-static-img {
             max-height: 85%;
             max-width: 85%;
             object-fit: contain;
-            user-select: none;
-            pointer-events: none;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
-            transition: transform 0.1s ease-out;
+            transition: transform 0.5s ease;
         }
 
-        .drag-instruction {
-            position: absolute;
-            bottom: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--gold-light);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border: 1px solid var(--border-color);
-            pointer-events: none;
+        .product-static-img:hover {
+            transform: scale(1.03);
         }
 
         .product-details h3 {
@@ -365,23 +349,22 @@
         </nav>
     </header>
 
-    <!-- Hero Section with V-Logo Theme Background -->
+    <!-- Hero Section with Royal Red Background -->
     <section class="hero">
         <h1>Wear Your Presence</h1>
         <p>Experience the pure essence of luxury with our exclusive White Oud masterpiece.</p>
         <a href="#product" class="btn-luxury">Discover Masterpiece</a>
     </section>
 
-    <!-- Single Product Section with 360 View -->
+    <!-- Single Product Section -->
     <section class="section" id="product">
         <h2 class="section-title">Signature Masterpiece</h2>
         <p class="section-subtitle">Exquisitely crafted for the distinguished connoisseur</p>
         
         <div class="single-product-container">
-            <!-- 360 Interactive Viewer -->
-            <div class="viewer-section" id="viewerContainer">
-                <img src="[cite: 1]" alt="White Oud 360 View" class="product-360-img" id="productImage">
-                <div class="drag-instruction"><i class="fas fa-arrows-alt-h"></i> Drag to rotate 360°</div>
+            <!-- Product Image Display -->
+            <div class="image-box">
+                <img src="https://i.ibb.co/3ykX1g9t/Perfume-bottle-product-render-2-K-20260919085342.jpg" alt="White Oud Royale" class="product-static-img">
             </div>
 
             <!-- Product Details -->
@@ -407,50 +390,8 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Interactive Scripts for 360 View & WhatsApp -->
+    <!-- Script for Dynamic WhatsApp Integration -->
     <script>
-        // 360 Degree Drag / Touch Rotation Simulation Logic
-        const container = document.getElementById('viewerContainer');
-        const img = document.getElementById('productImage');
-
-        let isDragging = false;
-        let startX = 0;
-        let currentRotation = 0;
-
-        container.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaX = e.clientX - startX;
-            currentRotation = deltaX % 360;
-            img.style.transform = `rotate(${currentRotation}deg)`;
-        });
-
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        // Touch support for mobile devices
-        container.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].clientX;
-        });
-
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const deltaX = e.touches[0].clientX - startX;
-            currentRotation = deltaX % 360;
-            img.style.transform = `rotate(${currentRotation}deg)`;
-        });
-
-        window.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // Dynamic WhatsApp Link & Size Selector
         const phoneNo = "918982687911";
         const sizeButtons = document.querySelectorAll('.size-btn');
         const waButton = document.getElementById('waButton');
