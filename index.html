@@ -77,7 +77,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             transition: color 0.3s ease;
-            position: relative;
         }
 
         nav a:hover {
@@ -124,8 +123,6 @@
             letter-spacing: 3px;
             font-weight: 500;
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-luxury:hover {
@@ -321,7 +318,8 @@
         <div class="single-product-container">
             <!-- Product Image Display -->
             <div class="image-box">
-                <img src="10ml.jpg" alt="Product" class="product-static-img" id="productImg">
+                <!-- Fallback added so if image fails to load, it doesn't break -->
+                <img src="10ml.jpg" alt="Product" class="product-static-img" id="productImg" onerror="this.src='50ml.jpg'">
             </div>
 
             <!-- Product Details -->
@@ -357,7 +355,7 @@
         const productDesc = document.getElementById('productDesc');
         const productDetailsBox = document.getElementById('productDetailsBox');
 
-        // Product mapping with 10ml, 30ml, 50ml images
+        // Note: Agar aapki images ka extension .jpeg ya .png hai, toh aap yahan .jpg ki jagah change kar sakte hain
         const productData = {
             "10ml": {
                 name: "French Oud Blanc (10ml)",
