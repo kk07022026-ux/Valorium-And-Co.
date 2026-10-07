@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALORIUM | White Oud Luxury Fragrance</title>
+    <title>VALORIUM | Luxury Fragrances & Oud</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
@@ -207,7 +207,7 @@
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
         }
 
-        /* Product Image Box */
+        /* Product Image Box with Smooth Transition Effect */
         .image-box {
             position: relative;
             width: 100%;
@@ -226,11 +226,17 @@
             max-width: 85%;
             object-fit: contain;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
-            transition: transform 0.5s ease;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
         }
 
-        .product-static-img:hover {
-            transform: scale(1.03);
+        /* Smooth Transition Class */
+        .fade-anim {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .product-details {
+            transition: opacity 0.4s ease-in-out;
         }
 
         .product-details h3 {
@@ -247,11 +253,11 @@
             line-height: 1.8;
         }
 
-        /* Size Selector */
+        /* Category Selector Buttons */
         .size-selector {
             margin-bottom: 30px;
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -259,7 +265,7 @@
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: var(--text-muted);
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 30px;
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -317,7 +323,6 @@
             color: var(--gold);
         }
 
-        /* Keyframes Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -344,18 +349,18 @@
     <header>
         <a href="#" class="logo">VALORIUM</a>
         <nav>
-            <a href="#product">White Oud</a>
+            <a href="#product">Collection</a>
         </nav>
     </header>
 
-    <!-- Hero Section with New Golden Lotus Background -->
+    <!-- Hero Section -->
     <section class="hero">
         <h1>Wear Your Presence</h1>
-        <p>Experience the pure essence of luxury with our exclusive White Oud masterpiece.</p>
+        <p>Experience the pure essence of luxury with our exclusive artisanal fragrances.</p>
         <a href="#product" class="btn-luxury">Discover Masterpiece</a>
     </section>
 
-    <!-- Single Product Section -->
+    <!-- Single Product Section with Smooth Transitions -->
     <section class="section" id="product">
         <h2 class="section-title">Signature Masterpiece</h2>
         <p class="section-subtitle">Exquisitely crafted for the distinguished connoisseur</p>
@@ -363,18 +368,19 @@
         <div class="single-product-container">
             <!-- Product Image Display -->
             <div class="image-box">
-                <img src="Perfume_bottle_product_render_2K_20260919085342.jpeg" alt="White Oud Royale" class="product-static-img">
+                <img src="Perfume_bottle_product_render_2K_20260919085342.jpeg" alt="Product" class="product-static-img" id="productImg">
             </div>
 
             <!-- Product Details -->
-            <div class="product-details">
-                <h3>White Oud Royale</h3>
-                <p>A majestic blend of rich amber, rare oriental woods, and deep pure white oud extracts crafted to leave an unforgettable royal trail.</p>
+            <div class="product-details" id="productDetailsBox">
+                <h3 id="productTitle">French Oud Blanc</h3>
+                <p id="productDesc">An exquisite fusion of pristine white florals and rich French ouds, creating an ethereal and unforgettable royal trail.</p>
                 
                 <div class="size-selector">
-                    <button class="size-btn active" data-size="10ml Roll-on">10ml Roll-on</button>
-                    <button class="size-btn" data-size="30ml Spray">30ml Spray</button>
-                    <button class="size-btn" data-size="50ml Spray">50ml Spray</button>
+                    <button class="size-btn active" data-category="french">French Oud Blanc</button>
+                    <button class="size-btn" data-category="10ml">10ml Spray</button>
+                    <button class="size-btn" data-category="30ml">30ml Spray</button>
+                    <button class="size-btn" data-category="50ml">50ml Spray</button>
                 </div>
 
                 <a href="#" target="_blank" class="whatsapp-btn" id="waButton">
@@ -389,27 +395,72 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Script for Dynamic WhatsApp Integration -->
+    <!-- Script for Smooth Category Transitions & WhatsApp -->
     <script>
         const phoneNo = "918982687911";
         const sizeButtons = document.querySelectorAll('.size-btn');
         const waButton = document.getElementById('waButton');
-        let selectedSize = "10ml Roll-on";
-        let productName = "White Oud Royale";
+        const productImg = document.getElementById('productImg');
+        const productTitle = document.getElementById('productTitle');
+        const productDesc = document.getElementById('productDesc');
+        const productDetailsBox = document.getElementById('productDetailsBox');
 
-        function updateWhatsAppLink() {
-            const message = encodeURIComponent(`Hello, I am interested in ${productName} (${selectedSize})`);
+        // Product category data mapping
+        const productData = {
+            "french": {
+                name: "French Oud Blanc",
+                desc: "An exquisite fusion of pristine white florals and rich French ouds, creating an ethereal and unforgettable royal trail.",
+                img: "Perfume_bottle_product_render_2K_20260919085342.jpeg" // Aap yaha French oud ki alag image bhi daal sakte hain
+            },
+            "10ml": {
+                name: "VALORIUM 10ml Spray",
+                desc: "Pocket-sized elegance for effortless touch-ups on the go. Concentrated luxury in a sleek, portable travel edition.",
+                img: "Perfume_bottle_product_render_2K_20260919085342.jpeg"
+            },
+            "30ml": {
+                name: "VALORIUM 30ml Spray",
+                desc: "The perfect balance of everyday signature scent and intense longevity, beautifully housed in our classic artisan glass bottle.",
+                img: "Perfume_bottle_product_render_2K_20260919085342.jpeg"
+            },
+            "50ml": {
+                name: "VALORIUM 50ml Royale",
+                desc: "The ultimate connoisseur edition. Generous volume of our purest formulation designed for true luxury collectors.",
+                img: "Perfume_bottle_product_render_2K_20260919085342.jpeg"
+            }
+        };
+
+        function updateWhatsAppLink(catName) {
+            const message = encodeURIComponent(`Hello, I am interested in ${catName}`);
             waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
         }
 
-        updateWhatsAppLink();
+        // Initial setup
+        updateWhatsAppLink("French Oud Blanc");
 
         sizeButtons.forEach(btn => {
             btn.addEventListener('click', () => {
+                const category = btn.getAttribute('data-category');
+                const data = productData[category];
+
+                // Remove active class from all buttons
                 sizeButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                selectedSize = btn.getAttribute('data-size');
-                updateWhatsAppLink();
+
+                // Apply Smooth Transition (Fade out)
+                productImg.classList.add('fade-anim');
+                productDetailsBox.style.opacity = '0';
+
+                setTimeout(() => {
+                    // Update Content
+                    productTitle.innerText = data.name;
+                    productDesc.innerText = data.desc;
+                    productImg.src = data.img;
+                    updateWhatsAppLink(data.name);
+
+                    // Fade in smoothly
+                    productImg.classList.remove('fade-anim');
+                    productDetailsBox.style.opacity = '1';
+                }, 300);
             });
         });
     </script>
