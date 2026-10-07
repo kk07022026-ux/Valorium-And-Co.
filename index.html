@@ -52,7 +52,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 22px 6%;
-            transition: var(--transition);
         }
 
         .logo {
@@ -81,23 +80,8 @@
             position: relative;
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--gold);
-            transition: width 0.3s ease;
-        }
-
         nav a:hover {
             color: var(--gold);
-        }
-
-        nav a:hover::after {
-            width: 100%;
         }
 
         /* Hero Section */
@@ -111,7 +95,6 @@
             padding: 0 20px;
             background: linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 0.85)), url('bg-luxury.jpg') no-repeat center center/cover;
             position: relative;
-            animation: fadeIn 1.5s ease;
         }
 
         .hero h1 {
@@ -119,7 +102,6 @@
             color: var(--gold-light);
             margin-bottom: 20px;
             letter-spacing: 5px;
-            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .hero p {
@@ -129,7 +111,6 @@
             margin-bottom: 35px;
             letter-spacing: 1.5px;
             font-weight: 300;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .btn-luxury {
@@ -145,28 +126,11 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .btn-luxury::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gold);
-            transition: transform 0.4s ease;
-            z-index: -1;
         }
 
         .btn-luxury:hover {
+            background: var(--gold);
             color: #000;
-            border-color: var(--gold);
-        }
-
-        .btn-luxury:hover::before {
-            transform: translateX(100%);
         }
 
         /* Section Layout */
@@ -188,3 +152,262 @@
         .section-subtitle {
             text-align: center;
             color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Single Product Showcase */
+        .single-product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background: radial-gradient(circle at center, #1c1810 0%, #141414 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Product Image Box */
+        .image-box {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: radial-gradient(circle, #241e12 0%, #0a0a0a 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-static-img {
+            max-height: 85%;
+            max-width: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+
+        .fade-anim {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .product-details {
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .product-details h3 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .product-details p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Category Selector Buttons */
+        .size-selector {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .size-btn.active, .size-btn:hover {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+            font-weight: 600;
+            transform: scale(1.05);
+        }
+
+        .whatsapp-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #25d366;
+            padding: 16px 25px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #25d366;
+            color: #000;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px;
+            background: #030303;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        footer span {
+            color: var(--gold);
+        }
+
+        @media (max-width: 968px) {
+            .single-product-container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+            .hero h1 { font-size: 2.8rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">VALORIUM</a>
+        <nav>
+            <a href="#product">Collection</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Wear Your Presence</h1>
+        <p>Experience the pure essence of luxury with our exclusive artisanal fragrances.</p>
+        <a href="#product" class="btn-luxury">Discover Masterpiece</a>
+    </section>
+
+    <!-- Single Product Section -->
+    <section class="section" id="product">
+        <h2 class="section-title">Signature Masterpiece</h2>
+        <p class="section-subtitle">Exquisitely crafted for the distinguished connoisseur</p>
+        
+        <div class="single-product-container">
+            <!-- Product Image Display -->
+            <div class="image-box">
+                <img src="10ml.jpg" alt="Product" class="product-static-img" id="productImg">
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-details" id="productDetailsBox">
+                <h3 id="productTitle">French Oud Blanc (10ml)</h3>
+                <p id="productDesc">Pocket-sized elegance[cite: 4] for effortless touch-ups on the go. Long lasting 8-12 hours, unisex, and skin friendly formulation.</p>
+                
+                <div class="size-selector">
+                    <button class="size-btn active" data-category="10ml">10ml Spray</button>
+                    <button class="size-btn" data-category="30ml">30ml Spray</button>
+                    <button class="size-btn" data-category="50ml">50ml Spray</button>
+                </div>
+
+                <a href="#" target="_blank" class="whatsapp-btn" id="waButton">
+                    <i class="fab fa-whatsapp"></i> Enquire via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
+    </footer>
+
+    <!-- Script for Dynamic Images & Smooth Transitions -->
+    <script>
+        const phoneNo = "918982687911";
+        const sizeButtons = document.querySelectorAll('.size-btn');
+        const waButton = document.getElementById('waButton');
+        const productImg = document.getElementById('productImg');
+        const productTitle = document.getElementById('productTitle');
+        const productDesc = document.getElementById('productDesc');
+        const productDetailsBox = document.getElementById('productDetailsBox');
+
+        // Product mapping with 10ml, 30ml, 50ml images
+        const productData = {
+            "10ml": {
+                name: "French Oud Blanc (10ml)",
+                desc: "Pocket-sized elegance[cite: 4] for effortless touch-ups on the go. Long lasting 8-12 hours, unisex, and skin friendly formulation.",
+                img: "10ml.jpg"
+            },
+            "30ml": {
+                name: "French Oud Blanc (30ml)",
+                desc: "The perfect balance of everyday signature scent and intense longevity, beautifully housed in our classic artisan glass bottle.",
+                img: "30ml.jpg"
+            },
+            "50ml": {
+                name: "French Oud Blanc (50ml Royale)",
+                desc: "The ultimate connoisseur edition. Generous volume of our purest formulation designed with a majestic crystal cap for true luxury collectors.",
+                img: "50ml.jpg"
+            }
+        };
+
+        function updateWhatsAppLink(catName) {
+            const message = encodeURIComponent(`Hello, I am interested in ${catName}`);
+            waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
+        }
+
+        updateWhatsAppLink("French Oud Blanc (10ml)");
+
+        sizeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.getAttribute('data-category');
+                const data = productData[category];
+
+                sizeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Smooth Fade Out Effect
+                productImg.classList.add('fade-anim');
+                productDetailsBox.style.opacity = '0';
+
+                setTimeout(() => {
+                    // Update Text & Image
+                    productTitle.innerText = data.name;
+                    productDesc.innerText = data.desc;
+                    productImg.src = data.img;
+                    updateWhatsAppLink(data.name);
+
+                    // Smooth Fade In Effect
+                    productImg.classList.remove('fade-anim');
+                    productDetailsBox.style.opacity = '1';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
