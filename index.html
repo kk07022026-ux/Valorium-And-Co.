@@ -252,6 +252,15 @@
             font-family: 'Playfair Display', serif;
         }
 
+        .coming-soon-text {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         .product-details p {
             color: var(--text-muted);
             font-size: 0.88rem;
@@ -333,6 +342,13 @@
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
+        .whatsapp-btn.disabled {
+            border-color: #444;
+            color: #666;
+            pointer-events: none;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -398,9 +414,9 @@
                 <h3 id="productTitle">French Oud Blanc (10ml)</h3>
                 
                 <!-- Pricing Area -->
-                <div class="price-box">
+                <div class="price-box" id="priceBoxContainer">
                     <span class="original-price" id="originalPrice">₹199</span>
-                    <span class="discount-badge">30% OFF</span>
+                    <span class="discount-badge" id="discountBadge">30% OFF</span>
                     <span class="current-price" id="currentPrice">₹149/-</span>
                 </div>
 
@@ -429,13 +445,12 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Script with Instant Preloading & Smooth Transition -->
+    <!-- Script with Instant Preloading & Coming Soon Support -->
     <script>
         const phoneNo = "918982687911";
         const productImg = document.getElementById('productImg');
         const productTitle = document.getElementById('productTitle');
-        const originalPrice = document.getElementById('originalPrice');
-        const currentPrice = document.getElementById('currentPrice');
+        const priceBoxContainer = document.getElementById('priceBoxContainer');
         const productDesc = document.getElementById('productDesc');
         const productDetailsBox = document.getElementById('productDetailsBox');
         const waButton = document.getElementById('waButton');
@@ -444,10 +459,11 @@
         const indicators = document.querySelectorAll('.indicator');
         const imageBox = document.getElementById('imageBox');
 
-        // Products Data Array
+        // Products Data Array with Coming Soon for 50ml
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
+                type: "price",
                 orig: "₹199",
                 price: "₹149/-",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
@@ -455,6 +471,7 @@
             },
             {
                 name: "French Oud Blanc (30ml)",
+                type: "price",
                 orig: "₹349",
                 price: "₹269/-",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
@@ -462,9 +479,8 @@
             },
             {
                 name: "French Oud Blanc (50ml Royale)",
-                orig: "₹599",
-                price: "₹459/-",
-                desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
+                type: "coming-soon",
+                desc: "The ultimate connoisseur edition. Generous volume of our purest formulation designed with a majestic crystal cap for true luxury collectors.",
                 img: "50mll.png"
             }
         ];
@@ -477,9 +493,27 @@
 
         let currentIndex = 0;
 
-        function updateWhatsAppLink(catName, priceText) {
-            const message = encodeURIComponent(`Hello, I am interested in ${catName} (${priceText})`);
-            waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
+        function updateProductView(prod) {
+            productTitle.innerText = prod.name;
+            productDesc.innerText = prod.desc;
+            productImg.src = prod.img;
+
+            if (prod.type === "coming-soon") {
+                priceBoxContainer.innerHTML = `<span class="coming-soon-text">Coming Soon</span>`;
+                waButton.innerHTML = `<i class="fas fa-clock"></i> Launching Soon`;
+                waButton.classList.add('disabled');
+                waButton.removeAttribute('href');
+            } else {
+                priceBoxContainer.innerHTML = `
+                    <span class="original-price">${prod.orig}</span>
+                    <span class="discount-badge">30% OFF</span>
+                    <span class="current-price">${prod.price}</span>
+                `;
+                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Enquire via WhatsApp`;
+                waButton.classList.remove('disabled');
+                const message = encodeURIComponent(`Hello, I am interested in ${prod.name} (${prod.price})`);
+                waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
+            }
         }
 
         function showProduct(index, direction = 'right') {
@@ -490,12 +524,7 @@
                 currentIndex = index;
                 const prod = products[currentIndex];
 
-                productTitle.innerText = prod.name;
-                originalPrice.innerText = prod.orig;
-                currentPrice.innerText = prod.price;
-                productDesc.innerText = prod.desc;
-                productImg.src = prod.img;
-                updateWhatsAppLink(prod.name, prod.price);
+                updateProductView(prod);
 
                 indicators.forEach((ind, i) => {
                     ind.classList.toggle('active', i === currentIndex);
@@ -546,7 +575,8 @@
             }
         }
 
-        updateWhatsAppLink(products[0].name, products[0].price);
+        // Initial setup
+        updateProductView(products[0]);
     </script>
 </body>
 </html>
