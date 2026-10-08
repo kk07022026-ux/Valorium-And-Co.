@@ -126,4 +126,375 @@
         }
 
         .btn-luxury:hover {
-            background: var(--
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* Section Layout */
+        .section {
+            padding: 120px 6%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 12px;
+            letter-spacing: 3px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Single Product Showcase with Slider Carousel */
+        .single-product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background: radial-gradient(circle at center, #1c1810 0%, #141414 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+
+        /* Product Image Box with Swipe Wrapper */
+        .image-box {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: radial-gradient(circle, #241e12 0%, #0a0a0a 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            touch-action: pan-y;
+        }
+
+        .product-static-img {
+            max-height: 85%;
+            max-width: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Instant Fast Slide Animation Classes */
+        .slide-out-left {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.97);
+        }
+
+        .slide-out-right {
+            opacity: 0;
+            transform: translateX(30px) scale(0.97);
+        }
+
+        .product-details {
+            transition: opacity 0.25s ease;
+        }
+
+        .product-details h3 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .product-details p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Carousel Navigation Controls (Arrows & Indicators) */
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .arrow-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .arrow-btn:hover {
+            background: var(--gold);
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        .indicators {
+            display: flex;
+            gap: 8px;
+        }
+
+        .indicator {
+            width: 30px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background: var(--gold);
+            width: 45px;
+        }
+
+        .whatsapp-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #25d366;
+            padding: 16px 25px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #25d366;
+            color: #000;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px;
+            background: #030303;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        footer span {
+            color: var(--gold);
+        }
+
+        @media (max-width: 968px) {
+            .single-product-container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+            .hero h1 { font-size: 2.8rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">VALORIUM</a>
+        <nav>
+            <a href="#product">Collection</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Wear Your Presence</h1>
+        <p>Experience the pure essence of luxury with our exclusive artisanal fragrances.</p>
+        <a href="#product" class="btn-luxury">Discover Masterpiece</a>
+    </section>
+
+    <!-- Single Product Section (Swipe Slider) -->
+    <section class="section" id="product">
+        <h2 class="section-title">French Oud Blanc</h2>
+        <p class="section-subtitle">Swipe or use arrows to explore volume variants</p>
+        
+        <div class="single-product-container" id="sliderContainer">
+            <!-- Product Image Display -->
+            <div class="image-box" id="imageBox">
+                <img src="10mll.png" alt="French Oud Blanc" class="product-static-img" id="productImg">
+            </div>
+
+            <!-- Product Details & Swipe Controls -->
+            <div class="product-details" id="productDetailsBox">
+                <h3 id="productTitle">French Oud Blanc (10ml)</h3>
+                <p id="productDesc">All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.</p>
+                
+                <!-- Swipe / Arrow Navigation Controls -->
+                <div class="carousel-controls">
+                    <button class="arrow-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <div class="indicators">
+                        <span class="indicator active" data-index="0"></span>
+                        <span class="indicator" data-index="1"></span>
+                        <span class="indicator" data-index="2"></span>
+                    </div>
+                    <button class="arrow-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <a href="#" target="_blank" class="whatsapp-btn" id="waButton">
+                    <i class="fab fa-whatsapp"></i> Enquire via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
+    </footer>
+
+    <!-- Script with Instant Preloading & Smooth Transition -->
+    <script>
+        const phoneNo = "918982687911";
+        const productImg = document.getElementById('productImg');
+        const productTitle = document.getElementById('productTitle');
+        const productDesc = document.getElementById('productDesc');
+        const productDetailsBox = document.getElementById('productDetailsBox');
+        const waButton = document.getElementById('waButton');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        const imageBox = document.getElementById('imageBox');
+
+        // Products Data Array with Updated Descriptions
+        const products = [
+            {
+                name: "French Oud Blanc (10ml)",
+                desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
+                img: "10mll.png"
+            },
+            {
+                name: "French Oud Blanc (30ml)",
+                desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
+                img: "30mll.png"
+            },
+            {
+                name: "French Oud Blanc (50ml Royale)",
+                desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
+                img: "50mll.png"
+            }
+        ];
+
+        // Preload all product images into browser memory
+        products.forEach(prod => {
+            const imgObj = new Image();
+            imgObj.src = prod.img;
+        });
+
+        let currentIndex = 0;
+
+        function updateWhatsAppLink(catName) {
+            const message = encodeURIComponent(`Hello, I am interested in ${catName}`);
+            waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
+        }
+
+        function showProduct(index, direction = 'right') {
+            // Fast Slide-out animation
+            productImg.classList.add(direction === 'right' ? 'slide-out-left' : 'slide-out-right');
+            productDetailsBox.style.opacity = '0';
+
+            setTimeout(() => {
+                currentIndex = index;
+                const prod = products[currentIndex];
+
+                // Update content instantly
+                productTitle.innerText = prod.name;
+                productDesc.innerText = prod.desc;
+                productImg.src = prod.img;
+                updateWhatsAppLink(prod.name);
+
+                // Update indicators
+                indicators.forEach((ind, i) => {
+                    ind.classList.toggle('active', i === currentIndex);
+                });
+
+                // Reset animation classes for instant slide-in
+                productImg.classList.remove('slide-out-left', 'slide-out-right');
+                productDetailsBox.style.opacity = '1';
+            }, 180);
+        }
+
+        // Arrow button events
+        nextBtn.addEventListener('click', () => {
+            let nextIndex = (currentIndex + 1) % products.length;
+            showProduct(nextIndex, 'right');
+        });
+
+        prevBtn.addEventListener('click', () => {
+            let prevIndex = (currentIndex - 1 + products.length) % products.length;
+            showProduct(prevIndex, 'left');
+        });
+
+        // Indicator click events
+        indicators.forEach((ind, i) => {
+            ind.addEventListener('click', () => {
+                let direction = i > currentIndex ? 'right' : 'left';
+                showProduct(i, direction);
+            });
+        });
+
+        // Mobile Swipe Gesture Support (Touch Events)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        imageBox.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        imageBox.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 40) {
+                // Swiped Left -> Next Product
+                let nextIndex = (currentIndex + 1) % products.length;
+                showProduct(nextIndex, 'right');
+            }
+            if (touchEndX > touchStartX + 40) {
+                // Swiped Right -> Previous Product
+                let prevIndex = (currentIndex - 1 + products.length) % products.length;
+                showProduct(prevIndex, 'left');
+            }
+        }
+
+        // Initial setup
+        updateWhatsAppLink(products[0].name);
+    </script>
+</body>
+</html>
