@@ -210,14 +210,47 @@
         .product-details h3 {
             font-size: 2.2rem;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             letter-spacing: 1px;
+        }
+
+        /* Price Tag Styling */
+        .price-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .original-price {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .current-price {
+            font-size: 1.8rem;
+            color: var(--gold-light);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
         }
 
         .product-details p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.8;
         }
 
@@ -226,7 +259,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             gap: 15px;
         }
 
@@ -352,6 +385,14 @@
             <!-- Product Details & Swipe Controls -->
             <div class="product-details" id="productDetailsBox">
                 <h3 id="productTitle">French Oud Blanc (10ml)</h3>
+                
+                <!-- Pricing Area -->
+                <div class="price-box">
+                    <span class="original-price" id="originalPrice">₹199</span>
+                    <span class="discount-badge">30% OFF</span>
+                    <span class="current-price" id="currentPrice">₹149/-</span>
+                </div>
+
                 <p id="productDesc">All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.</p>
                 
                 <!-- Swipe / Arrow Navigation Controls -->
@@ -377,11 +418,13 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Script with Instant Preloading & Smooth Transition -->
+    <!-- Script with Pricing, Instant Preloading & Smooth Transition -->
     <script>
         const phoneNo = "918982687911";
         const productImg = document.getElementById('productImg');
         const productTitle = document.getElementById('productTitle');
+        const originalPrice = document.getElementById('originalPrice');
+        const currentPrice = document.getElementById('currentPrice');
         const productDesc = document.getElementById('productDesc');
         const productDetailsBox = document.getElementById('productDetailsBox');
         const waButton = document.getElementById('waButton');
@@ -390,20 +433,26 @@
         const indicators = document.querySelectorAll('.indicator');
         const imageBox = document.getElementById('imageBox');
 
-        // Products Data Array with Updated Descriptions
+        // Products Data Array with Prices & Details
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
+                orig: "₹199",
+                price: "₹149/-",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
                 img: "10mll.png"
             },
             {
                 name: "French Oud Blanc (30ml)",
+                orig: "₹349",
+                price: "₹269/-",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
                 img: "30mll.png"
             },
             {
                 name: "French Oud Blanc (50ml Royale)",
+                orig: "₹599",
+                price: "₹459/-",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
                 img: "50mll.png"
             }
@@ -417,8 +466,8 @@
 
         let currentIndex = 0;
 
-        function updateWhatsAppLink(catName) {
-            const message = encodeURIComponent(`Hello, I am interested in ${catName}`);
+        function updateWhatsAppLink(catName, priceText) {
+            const message = encodeURIComponent(`Hello, I am interested in ${catName} (${priceText})`);
             waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
         }
 
@@ -433,9 +482,11 @@
 
                 // Update content instantly
                 productTitle.innerText = prod.name;
+                originalPrice.innerText = prod.orig;
+                currentPrice.innerText = prod.price;
                 productDesc.innerText = prod.desc;
                 productImg.src = prod.img;
-                updateWhatsAppLink(prod.name);
+                updateWhatsAppLink(prod.name, prod.price);
 
                 // Update indicators
                 indicators.forEach((ind, i) => {
@@ -494,7 +545,7 @@
         }
 
         // Initial setup
-        updateWhatsAppLink(products[0].name);
+        updateWhatsAppLink(products[0].name, products[0].price);
     </script>
 </body>
 </html>
