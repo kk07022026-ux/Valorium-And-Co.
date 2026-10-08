@@ -18,7 +18,7 @@
             --text-main: #ffffff;
             --text-muted: #888888;
             --border-color: rgba(212, 175, 55, 0.2);
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -189,22 +189,22 @@
             max-width: 85%;
             object-fit: contain;
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
-            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Ultra Smooth Slide Animation Classes */
+        /* Instant Fast Slide Animation Classes */
         .slide-out-left {
             opacity: 0;
-            transform: translateX(-50px) scale(0.95);
+            transform: translateX(-30px) scale(0.97);
         }
 
         .slide-out-right {
             opacity: 0;
-            transform: translateX(50px) scale(0.95);
+            transform: translateX(30px) scale(0.97);
         }
 
         .product-details {
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.25s ease;
         }
 
         .product-details h3 {
@@ -377,7 +377,7 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Script for Swipe & Smooth Slide Animations -->
+    <!-- Script with Instant Preloading & Smooth Transition -->
     <script>
         const phoneNo = "918982687911";
         const productImg = document.getElementById('productImg');
@@ -390,7 +390,7 @@
         const indicators = document.querySelectorAll('.indicator');
         const imageBox = document.getElementById('imageBox');
 
-        // Products Data Array mapped to 10mll, 30mll, and 50mll transparent PNGs
+        // Products Data Array
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
@@ -409,6 +409,12 @@
             }
         ];
 
+        // Preload all product images into browser memory to eliminate any loading delay
+        products.forEach(prod => {
+            const imgObj = new Image();
+            imgObj.src = prod.img;
+        });
+
         let currentIndex = 0;
 
         function updateWhatsAppLink(catName) {
@@ -417,7 +423,7 @@
         }
 
         function showProduct(index, direction = 'right') {
-            // Apply Slide-out animation
+            // Fast Slide-out animation
             productImg.classList.add(direction === 'right' ? 'slide-out-left' : 'slide-out-right');
             productDetailsBox.style.opacity = '0';
 
@@ -425,7 +431,7 @@
                 currentIndex = index;
                 const prod = products[currentIndex];
 
-                // Update content
+                // Update content instantly using preloaded cache
                 productTitle.innerText = prod.name;
                 productDesc.innerText = prod.desc;
                 productImg.src = prod.img;
@@ -436,10 +442,10 @@
                     ind.classList.toggle('active', i === currentIndex);
                 });
 
-                // Reset animation classes for slide-in
+                // Reset animation classes for instant slide-in
                 productImg.classList.remove('slide-out-left', 'slide-out-right');
                 productDetailsBox.style.opacity = '1';
-            }, 300);
+            }, 180); // Quick 180ms switch for lightning-fast responsiveness
         }
 
         // Arrow button events
@@ -475,12 +481,12 @@
         }, {passive: true});
 
         function handleSwipe() {
-            if (touchEndX < touchStartX - 50) {
+            if (touchEndX < touchStartX - 40) {
                 // Swiped Left -> Next Product
                 let nextIndex = (currentIndex + 1) % products.length;
                 showProduct(nextIndex, 'right');
             }
-            if (touchEndX > touchStartX + 50) {
+            if (touchEndX > touchStartX + 40) {
                 // Swiped Right -> Previous Product
                 let prevIndex = (currentIndex - 1 + products.length) % products.length;
                 showProduct(prevIndex, 'left');
