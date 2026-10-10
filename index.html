@@ -600,4 +600,82 @@
                 savingsText.innerHTML = `<i class="fas fa-check-circle"></i> ${prod.savings}`;
                 offerCardContainer.style.display = "block";
                 
-   
+                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Order Single Bottle`;
+                waButton.classList.remove('disabled');
+
+                const singleMsg = encodeURIComponent(`Hello VALORIUM, I want to order 1 bottle of ${prod.name} at ${prod.price}.`);
+                waButton.href = `https://wa.me/${phoneNo}?text=${singleMsg}`;
+
+                const offerMsg = encodeURIComponent(`Hello VALORIUM, I want to claim the Special Offer: ${prod.offer} for ${prod.name}. Please confirm my order.`);
+                miniOfferWaBtn.href = `https://wa.me/${phoneNo}?text=${offerMsg}`;
+            }
+        }
+
+        function showProduct(index, direction = 'right') {
+            productImg.classList.add(direction === 'right' ? 'slide-out-left' : 'slide-out-right');
+            productDetailsBox.style.opacity = '0';
+
+            setTimeout(() => {
+                currentIndex = index;
+                const prod = products[currentIndex];
+
+                updateProductView(prod);
+
+                indicators.forEach((ind, i) => {
+                    ind.classList.toggle('active', i === currentIndex);
+                });
+
+                productImg.classList.remove('slide-out-left', 'slide-out-right');
+                productDetailsBox.style.opacity = '1';
+            }, 100);
+        }
+
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let nextIndex = (currentIndex + 1) % products.length;
+            showProduct(nextIndex, 'right');
+        });
+
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let prevIndex = (currentIndex - 1 + products.length) % products.length;
+            showProduct(prevIndex, 'left');
+        });
+
+        indicators.forEach((ind, i) => {
+            ind.addEventListener('click', () => {
+                let direction = i > currentIndex ? 'right' : 'left';
+                showProduct(i, direction);
+            });
+        });
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        sliderContainer.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
+
+        sliderContainer.addEventListener('touchend', function(e) {
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
+
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
+
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+                if (diffX > 0) {
+                    let nextIndex = (currentIndex + 1) % products.length;
+                    showProduct(nextIndex, 'right');
+                } else {
+                    let prevIndex = (currentIndex - 1 + products.length) % products.length;
+                    showProduct(prevIndex, 'left');
+                }
+            }
+        }, {passive: true});
+
+        updateProductView(products[0]);
+    </script>
+</body>
+</html>
