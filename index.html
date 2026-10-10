@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VALORIUM | Luxury Fragrances & Oud</title>
     
-    <!-- Instant Image Preloading -->
-    <link rel="preload" as="image" href="10mll.png">
-    <link rel="preload" as="image" href="30mll.png">
-    <link rel="preload" as="image" href="50mll.png">
-    <link rel="preload" as="image" href="bg-luxury.jpg">
+    <!-- Ultra-Fast High-Priority Preloading for Instant Images -->
+    <link rel="preload" as="image" href="10mll.png" fetchpriority="high">
+    <link rel="preload" as="image" href="30mll.png" fetchpriority="high">
+    <link rel="preload" as="image" href="50mll.png" fetchpriority="high">
+    <link rel="preload" as="image" href="bg-luxury.jpg" fetchpriority="high">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
             --text-main: #ffffff;
             --text-muted: #888888;
             --border-color: rgba(212, 175, 55, 0.25);
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -50,7 +50,7 @@
         header {
             position: sticky;
             top: 0;
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
@@ -58,11 +58,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
+            padding: 14px 5%;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--gold);
             letter-spacing: 4px;
@@ -73,7 +73,7 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
 
         nav a {
@@ -91,7 +91,8 @@
 
         /* Hero Section */
         .hero {
-            height: 50vh;
+            height: 45vh;
+            min-height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -103,17 +104,17 @@
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             color: var(--gold-light);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 3px;
         }
 
         .hero p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #d1d1d1;
-            max-width: 550px;
-            margin-bottom: 20px;
+            max-width: 500px;
+            margin-bottom: 18px;
             letter-spacing: 1px;
             font-weight: 300;
         }
@@ -121,10 +122,10 @@
         .btn-luxury {
             background: transparent;
             color: #fff;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border: 1px solid var(--gold);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 500;
@@ -138,24 +139,24 @@
 
         /* Section Layout */
         .section {
-            padding: 40px 5%;
-            max-width: 1100px;
+            padding: 30px 4%;
+            max-width: 1050px;
             margin: 0 auto;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: var(--gold);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 2px;
         }
 
         .section-subtitle {
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 30px;
+            font-size: 0.75rem;
+            margin-bottom: 25px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
@@ -164,12 +165,12 @@
         .single-product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 35px;
+            gap: 30px;
             align-items: center;
             background: radial-gradient(circle at center, #1c1810 0%, #141414 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 35px;
+            padding: 30px;
             box-shadow: 0 15px 35px rgba(212, 175, 55, 0.1);
             position: relative;
         }
@@ -178,7 +179,7 @@
         .image-box {
             position: relative;
             width: 100%;
-            height: 360px;
+            height: 340px;
             background: radial-gradient(circle, #241e12 0%, #0a0a0a 100%);
             border-radius: 8px;
             overflow: hidden;
@@ -187,6 +188,12 @@
             align-items: center;
             border: 1px solid var(--border-color);
             touch-action: pan-y;
+            user-select: none;
+            cursor: grab;
+        }
+
+        .image-box:active {
+            cursor: grabbing;
         }
 
         .product-static-img {
@@ -194,7 +201,8 @@
             max-width: 85%;
             object-fit: contain;
             filter: drop-shadow(0 12px 20px rgba(0,0,0,0.8));
-            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
         }
 
         /* Fast Slide Animation */
@@ -209,13 +217,13 @@
         }
 
         .product-details {
-            transition: opacity 0.2s ease;
+            transition: opacity 0.18s ease;
         }
 
         .product-details h3 {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
         }
 
@@ -246,14 +254,14 @@
         }
 
         .current-price {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             color: var(--gold-light);
             font-weight: 700;
             font-family: 'Playfair Display', serif;
         }
 
         .coming-soon-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--gold);
             font-weight: 700;
             font-family: 'Playfair Display', serif;
@@ -266,29 +274,58 @@
             background: rgba(212, 175, 55, 0.08);
             border: 1px dashed var(--gold);
             border-radius: 8px;
-            padding: 12px 15px;
+            padding: 12px;
             margin-bottom: 15px;
+        }
+
+        .offer-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .offer-title-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             background: var(--gold);
             color: #000;
             font-weight: 700;
-            font-size: 0.72rem;
-            padding: 3px 10px;
+            font-size: 0.68rem;
+            padding: 3px 8px;
             border-radius: 3px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: 0.8px;
+        }
+
+        /* Mini WhatsApp Offer Button */
+        .mini-wa-btn {
+            background-color: #25d366;
+            color: #000;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+            white-space: nowrap;
+        }
+
+        .mini-wa-btn:hover {
+            background-color: #1ebc57;
+            transform: scale(1.04);
         }
 
         .offer-details {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: #ffffff;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-weight: 500;
         }
 
@@ -296,25 +333,25 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             color: #25d366;
             font-weight: 600;
         }
 
         .product-details p.description {
             color: var(--text-muted);
-            font-size: 0.82rem;
-            margin-bottom: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 16px;
             line-height: 1.5;
         }
 
-        /* Carousel Navigation Controls */
+        /* Carousel Controls */
         .carousel-controls {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 18px;
-            gap: 15px;
+            margin-bottom: 16px;
+            gap: 12px;
         }
 
         .arrow-btn {
@@ -335,7 +372,7 @@
         .arrow-btn:hover {
             background: var(--gold);
             color: #000;
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
         .indicators {
@@ -344,7 +381,7 @@
         }
 
         .indicator {
-            width: 25px;
+            width: 22px;
             height: 3px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 2px;
@@ -354,25 +391,25 @@
 
         .indicator.active {
             background: var(--gold);
-            width: 40px;
+            width: 36px;
         }
 
         .whatsapp-btn {
             background-color: transparent;
             color: #fff;
             border: 1px solid #25d366;
-            padding: 14px 20px;
+            padding: 13px 18px;
             border-radius: 4px;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             transition: var(--transition);
             width: 100%;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
+            font-size: 0.78rem;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
         }
 
@@ -392,10 +429,10 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 22px;
             background: #030303;
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             border-top: 1px solid var(--border-color);
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -405,18 +442,18 @@
             color: var(--gold);
         }
 
-        /* Mobile Responsive adjustments */
+        /* Mobile Adjustments */
         @media (max-width: 968px) {
-            .hero { height: 45vh; }
-            .hero h1 { font-size: 2.1rem; }
-            .section { padding: 25px 4%; }
+            .hero { height: 40vh; min-height: 240px; }
+            .hero h1 { font-size: 2rem; }
+            .section { padding: 20px 3%; }
             .single-product-container {
                 grid-template-columns: 1fr;
-                padding: 20px;
-                gap: 20px;
+                padding: 18px;
+                gap: 18px;
             }
-            .image-box { height: 280px; }
-            .product-details h3 { font-size: 1.4rem; }
+            .image-box { height: 270px; }
+            .product-details h3 { font-size: 1.35rem; }
             nav { display: none; }
         }
     </style>
@@ -444,7 +481,7 @@
         <p class="section-subtitle">Swipe or use arrows to explore volume variants</p>
         
         <div class="single-product-container" id="sliderContainer">
-            <!-- Product Image Display -->
+            <!-- Product Image Display Box -->
             <div class="image-box" id="imageBox">
                 <img src="10mll.png" alt="French Oud Blanc" class="product-static-img" id="productImg">
             </div>
@@ -460,10 +497,15 @@
                     <span class="current-price" id="currentPrice">₹149/-</span>
                 </div>
 
-                <!-- Buy 2 Get 1 Free Offer Card with Savings Display -->
+                <!-- Buy 2 Get 1 Free Offer Card with Mini Direct WhatsApp Button -->
                 <div id="offerCardContainer" class="offer-card">
-                    <div class="offer-title-badge">
-                        <i class="fas fa-fire"></i> Special Offer
+                    <div class="offer-header-row">
+                        <div class="offer-title-badge">
+                            <i class="fas fa-fire"></i> Special Offer
+                        </div>
+                        <a href="#" target="_blank" class="mini-wa-btn" id="miniOfferWaBtn">
+                            <i class="fab fa-whatsapp"></i> Claim Offer
+                        </a>
                     </div>
                     <div class="offer-details" id="offerText">
                         BUY 2 GET 1 FREE (Get 3 Bottles @ ₹298/-)
@@ -477,17 +519,17 @@
                 
                 <!-- Controls -->
                 <div class="carousel-controls">
-                    <button class="arrow-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="arrow-btn" id="prevBtn" type="button"><i class="fas fa-chevron-left"></i></button>
                     <div class="indicators">
                         <span class="indicator active" data-index="0"></span>
                         <span class="indicator" data-index="1"></span>
                         <span class="indicator" data-index="2"></span>
                     </div>
-                    <button class="arrow-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                    <button class="arrow-btn" id="nextBtn" type="button"><i class="fas fa-chevron-right"></i></button>
                 </div>
 
                 <a href="#" target="_blank" class="whatsapp-btn" id="waButton">
-                    <i class="fab fa-whatsapp"></i> Enquire via WhatsApp
+                    <i class="fab fa-whatsapp"></i> Order via WhatsApp
                 </a>
             </div>
         </div>
@@ -510,12 +552,13 @@
         const productDesc = document.getElementById('productDesc');
         const productDetailsBox = document.getElementById('productDetailsBox');
         const waButton = document.getElementById('waButton');
+        const miniOfferWaBtn = document.getElementById('miniOfferWaBtn');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const indicators = document.querySelectorAll('.indicator');
         const imageBox = document.getElementById('imageBox');
 
-        // Products Data with Buy 2 Get 1 Free & Bachat Details
+        // Products Dataset
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
@@ -545,7 +588,7 @@
             }
         ];
 
-        // Preload Images
+        // Instant JS Cache Preloading
         products.forEach(prod => {
             const imgObj = new Image();
             imgObj.src = prod.img;
@@ -567,38 +610,4 @@
             } else {
                 priceBoxContainer.innerHTML = `
                     <span class="original-price">${prod.orig}</span>
-                    <span class="discount-badge">30% OFF</span>
-                    <span class="current-price">${prod.price}</span>
-                `;
-                offerText.innerText = prod.offer;
-                savingsText.innerHTML = `<i class="fas fa-check-circle"></i> ${prod.savings}`;
-                offerCardContainer.style.display = "block";
-                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Order via WhatsApp`;
-                waButton.classList.remove('disabled');
-                
-                const message = encodeURIComponent(`Hello, I want to order ${prod.name} (${prod.price}) with ${prod.offer}`);
-                waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
-            }
-        }
-
-        function showProduct(index, direction = 'right') {
-            productImg.classList.add(direction === 'right' ? 'slide-out-left' : 'slide-out-right');
-            productDetailsBox.style.opacity = '0';
-
-            setTimeout(() => {
-                currentIndex = index;
-                const prod = products[currentIndex];
-
-                updateProductView(prod);
-
-                indicators.forEach((ind, i) => {
-                    ind.classList.toggle('active', i === currentIndex);
-                });
-
-                productImg.classList.remove('slide-out-left', 'slide-out-right');
-                productDetailsBox.style.opacity = '1';
-            }, 150);
-        }
-
-        nextBtn.addEventListener('click', () => {
-            let nextIndex 
+                 
