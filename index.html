@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VALORIUM | Luxury Fragrances & Oud</title>
     
-    <!-- Ultra-Fast High-Priority Preloading for Instant Images -->
+    <!-- Instant Preloading -->
     <link rel="preload" as="image" href="10mll.png" fetchpriority="high">
     <link rel="preload" as="image" href="30mll.png" fetchpriority="high">
     <link rel="preload" as="image" href="50mll.png" fetchpriority="high">
@@ -189,11 +189,7 @@
             border: 1px solid var(--border-color);
             touch-action: pan-y;
             user-select: none;
-            cursor: grab;
-        }
-
-        .image-box:active {
-            cursor: grabbing;
+            cursor: pointer;
         }
 
         .product-static-img {
@@ -203,9 +199,10 @@
             filter: drop-shadow(0 12px 20px rgba(0,0,0,0.8));
             transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform, opacity;
+            pointer-events: none;
         }
 
-        /* Fast Slide Animation */
+        /* Slide Animations */
         .slide-out-left {
             opacity: 0;
             transform: translateX(-20px) scale(0.97);
@@ -269,7 +266,7 @@
             text-transform: uppercase;
         }
 
-        /* Offer & Bachat Box Styling */
+        /* Offer & Bachat Box */
         .offer-card {
             background: rgba(212, 175, 55, 0.08);
             border: 1px dashed var(--gold);
@@ -304,14 +301,15 @@
         .mini-wa-btn {
             background-color: #25d366;
             color: #000;
-            text-decoration: none;
             font-size: 0.7rem;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
+            border: none;
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
             white-space: nowrap;
@@ -394,13 +392,13 @@
             width: 36px;
         }
 
+        /* Primary WhatsApp Button */
         .whatsapp-btn {
             background-color: transparent;
             color: #fff;
             border: 1px solid #25d366;
             padding: 13px 18px;
             border-radius: 4px;
-            text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -411,6 +409,7 @@
             font-size: 0.78rem;
             letter-spacing: 1.2px;
             text-transform: uppercase;
+            cursor: pointer;
         }
 
         .whatsapp-btn:hover {
@@ -424,6 +423,7 @@
             color: #666;
             pointer-events: none;
             background-color: rgba(255, 255, 255, 0.02);
+            cursor: not-allowed;
         }
 
         /* Footer */
@@ -497,15 +497,15 @@
                     <span class="current-price" id="currentPrice">₹149/-</span>
                 </div>
 
-                <!-- Buy 2 Get 1 Free Offer Card with Mini Direct WhatsApp Button -->
+                <!-- Buy 2 Get 1 Free Offer Card with Direct Mini WhatsApp Button -->
                 <div id="offerCardContainer" class="offer-card">
                     <div class="offer-header-row">
                         <div class="offer-title-badge">
                             <i class="fas fa-fire"></i> Special Offer
                         </div>
-                        <a href="#" target="_blank" class="mini-wa-btn" id="miniOfferWaBtn">
+                        <button type="button" class="mini-wa-btn" id="miniOfferWaBtn">
                             <i class="fab fa-whatsapp"></i> Claim Offer
-                        </a>
+                        </button>
                     </div>
                     <div class="offer-details" id="offerText">
                         BUY 2 GET 1 FREE (Get 3 Bottles @ ₹298/-)
@@ -528,9 +528,9 @@
                     <button class="arrow-btn" id="nextBtn" type="button"><i class="fas fa-chevron-right"></i></button>
                 </div>
 
-                <a href="#" target="_blank" class="whatsapp-btn" id="waButton">
+                <button type="button" class="whatsapp-btn" id="waButton">
                     <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -558,7 +558,7 @@
         const indicators = document.querySelectorAll('.indicator');
         const imageBox = document.getElementById('imageBox');
 
-        // Products Dataset
+        // Products Data
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
@@ -588,13 +588,21 @@
             }
         ];
 
-        // Instant JS Cache Preloading
+        // Preload Images into memory
         products.forEach(prod => {
             const imgObj = new Image();
             imgObj.src = prod.img;
         });
 
         let currentIndex = 0;
+        let currentSingleMsg = "";
+        let currentOfferMsg = "";
+
+        function openWhatsApp(msgText) {
+            const encodedMsg = encodeURIComponent(msgText);
+            const targetUrl = `https://api.whatsapp.com/send?phone=${phoneNo}&text=${encodedMsg}`;
+            window.open(targetUrl, '_blank');
+        }
 
         function updateProductView(prod) {
             productTitle.innerText = prod.name;
@@ -604,10 +612,4 @@
             if (prod.type === "coming-soon") {
                 priceBoxContainer.innerHTML = `<span class="coming-soon-text">Coming Soon</span>`;
                 offerCardContainer.style.display = "none";
-                waButton.innerHTML = `<i class="fas fa-clock"></i> Launching Soon`;
-                waButton.classList.add('disabled');
-                waButton.removeAttribute('href');
-            } else {
-                priceBoxContainer.innerHTML = `
-                    <span class="original-price">${prod.orig}</span>
-                 
+                
