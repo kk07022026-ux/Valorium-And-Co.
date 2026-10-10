@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VALORIUM | Luxury Fragrances & Oud</title>
     
-    <!-- Instant Image Preloading to eliminate loading delay -->
+    <!-- Instant Image Preloading -->
     <link rel="preload" as="image" href="10mll.png">
     <link rel="preload" as="image" href="30mll.png">
     <link rel="preload" as="image" href="50mll.png">
@@ -46,7 +46,7 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Sticky Luxury Header */
+        /* Header */
         header {
             position: sticky;
             top: 0;
@@ -91,7 +91,7 @@
 
         /* Hero Section */
         .hero {
-            height: 60vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -103,17 +103,17 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             color: var(--gold-light);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             letter-spacing: 3px;
         }
 
         .hero p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #d1d1d1;
             max-width: 550px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             letter-spacing: 1px;
             font-weight: 300;
         }
@@ -138,7 +138,7 @@
 
         /* Section Layout */
         .section {
-            padding: 60px 5%;
+            padding: 40px 5%;
             max-width: 1100px;
             margin: 0 auto;
         }
@@ -155,7 +155,7 @@
             text-align: center;
             color: var(--text-muted);
             font-size: 0.8rem;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
@@ -164,12 +164,12 @@
         .single-product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 35px;
             align-items: center;
             background: radial-gradient(circle at center, #1c1810 0%, #141414 100%);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 40px;
+            padding: 35px;
             box-shadow: 0 15px 35px rgba(212, 175, 55, 0.1);
             position: relative;
         }
@@ -178,7 +178,7 @@
         .image-box {
             position: relative;
             width: 100%;
-            height: 380px;
+            height: 360px;
             background: radial-gradient(circle, #241e12 0%, #0a0a0a 100%);
             border-radius: 8px;
             overflow: hidden;
@@ -213,7 +213,7 @@
         }
 
         .product-details h3 {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             color: #fff;
             margin-bottom: 10px;
             letter-spacing: 1px;
@@ -223,12 +223,12 @@
         .price-box {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .original-price {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
             text-decoration: line-through;
         }
@@ -246,7 +246,7 @@
         }
 
         .current-price {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--gold-light);
             font-weight: 700;
             font-family: 'Playfair Display', serif;
@@ -261,11 +261,51 @@
             text-transform: uppercase;
         }
 
-        .product-details p {
+        /* Offer & Bachat Box Styling */
+        .offer-card {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px dashed var(--gold);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+        }
+
+        .offer-title-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .offer-details {
+            font-size: 0.85rem;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .savings-highlight {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: #25d366;
+            font-weight: 600;
+        }
+
+        .product-details p.description {
             color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            line-height: 1.5;
         }
 
         /* Carousel Navigation Controls */
@@ -273,7 +313,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             gap: 15px;
         }
 
@@ -281,15 +321,15 @@
             background: rgba(212, 175, 55, 0.1);
             border: 1px solid var(--gold);
             color: var(--gold);
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .arrow-btn:hover {
@@ -352,7 +392,7 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             background: #030303;
             color: var(--text-muted);
             font-size: 0.75rem;
@@ -365,18 +405,18 @@
             color: var(--gold);
         }
 
-        /* Responsive Design for Mobile */
+        /* Mobile Responsive adjustments */
         @media (max-width: 968px) {
-            .hero { height: 50vh; }
-            .hero h1 { font-size: 2.2rem; }
-            .section { padding: 35px 4%; }
+            .hero { height: 45vh; }
+            .hero h1 { font-size: 2.1rem; }
+            .section { padding: 25px 4%; }
             .single-product-container {
                 grid-template-columns: 1fr;
                 padding: 20px;
-                gap: 25px;
+                gap: 20px;
             }
-            .image-box { height: 300px; }
-            .product-details h3 { font-size: 1.5rem; }
+            .image-box { height: 280px; }
+            .product-details h3 { font-size: 1.4rem; }
             nav { display: none; }
         }
     </style>
@@ -398,7 +438,7 @@
         <a href="#product" class="btn-luxury">Discover Masterpiece</a>
     </section>
 
-    <!-- Single Product Section (Swipe Slider) -->
+    <!-- Single Product Section -->
     <section class="section" id="product">
         <h2 class="section-title">French Oud Blanc</h2>
         <p class="section-subtitle">Swipe or use arrows to explore volume variants</p>
@@ -409,7 +449,7 @@
                 <img src="10mll.png" alt="French Oud Blanc" class="product-static-img" id="productImg">
             </div>
 
-            <!-- Product Details & Swipe Controls -->
+            <!-- Product Details & Controls -->
             <div class="product-details" id="productDetailsBox">
                 <h3 id="productTitle">French Oud Blanc (10ml)</h3>
                 
@@ -420,9 +460,22 @@
                     <span class="current-price" id="currentPrice">₹149/-</span>
                 </div>
 
-                <p id="productDesc">All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.</p>
+                <!-- Buy 2 Get 1 Free Offer Card with Savings Display -->
+                <div id="offerCardContainer" class="offer-card">
+                    <div class="offer-title-badge">
+                        <i class="fas fa-fire"></i> Special Offer
+                    </div>
+                    <div class="offer-details" id="offerText">
+                        BUY 2 GET 1 FREE (Get 3 Bottles @ ₹298/-)
+                    </div>
+                    <div class="savings-highlight" id="savingsText">
+                        <i class="fas fa-check-circle"></i> Aapki Total Bachat: ₹149/- FREE
+                    </div>
+                </div>
+
+                <p class="description" id="productDesc">All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.</p>
                 
-                <!-- Swipe / Arrow Navigation Controls -->
+                <!-- Controls -->
                 <div class="carousel-controls">
                     <button class="arrow-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
                     <div class="indicators">
@@ -445,12 +498,15 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Script with Instant Preloading & Coming Soon Support -->
+    <!-- Script -->
     <script>
         const phoneNo = "918982687911";
         const productImg = document.getElementById('productImg');
         const productTitle = document.getElementById('productTitle');
         const priceBoxContainer = document.getElementById('priceBoxContainer');
+        const offerCardContainer = document.getElementById('offerCardContainer');
+        const offerText = document.getElementById('offerText');
+        const savingsText = document.getElementById('savingsText');
         const productDesc = document.getElementById('productDesc');
         const productDetailsBox = document.getElementById('productDetailsBox');
         const waButton = document.getElementById('waButton');
@@ -459,13 +515,15 @@
         const indicators = document.querySelectorAll('.indicator');
         const imageBox = document.getElementById('imageBox');
 
-        // Products Data Array with Coming Soon for 50ml
+        // Products Data with Buy 2 Get 1 Free & Bachat Details
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
                 type: "price",
                 orig: "₹199",
                 price: "₹149/-",
+                offer: "BUY 2 GET 1 FREE (Get 3 Bottles @ ₹298/-)",
+                savings: "Aapki Total Bachat: ₹149/- FREE",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
                 img: "10mll.png"
             },
@@ -474,6 +532,8 @@
                 type: "price",
                 orig: "₹349",
                 price: "₹269/-",
+                offer: "BUY 2 GET 1 FREE (Get 3 Bottles @ ₹538/-)",
+                savings: "Aapki Total Bachat: ₹269/- FREE",
                 desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
                 img: "30mll.png"
             },
@@ -485,7 +545,7 @@
             }
         ];
 
-        // Ensure JavaScript preloads images immediately
+        // Preload Images
         products.forEach(prod => {
             const imgObj = new Image();
             imgObj.src = prod.img;
@@ -500,6 +560,7 @@
 
             if (prod.type === "coming-soon") {
                 priceBoxContainer.innerHTML = `<span class="coming-soon-text">Coming Soon</span>`;
+                offerCardContainer.style.display = "none";
                 waButton.innerHTML = `<i class="fas fa-clock"></i> Launching Soon`;
                 waButton.classList.add('disabled');
                 waButton.removeAttribute('href');
@@ -509,9 +570,13 @@
                     <span class="discount-badge">30% OFF</span>
                     <span class="current-price">${prod.price}</span>
                 `;
-                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Enquire via WhatsApp`;
+                offerText.innerText = prod.offer;
+                savingsText.innerHTML = `<i class="fas fa-check-circle"></i> ${prod.savings}`;
+                offerCardContainer.style.display = "block";
+                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Order via WhatsApp`;
                 waButton.classList.remove('disabled');
-                const message = encodeURIComponent(`Hello, I am interested in ${prod.name} (${prod.price})`);
+                
+                const message = encodeURIComponent(`Hello, I want to order ${prod.name} (${prod.price}) with ${prod.offer}`);
                 waButton.href = `https://wa.me/${phoneNo}?text=${message}`;
             }
         }
@@ -536,47 +601,4 @@
         }
 
         nextBtn.addEventListener('click', () => {
-            let nextIndex = (currentIndex + 1) % products.length;
-            showProduct(nextIndex, 'right');
-        });
-
-        prevBtn.addEventListener('click', () => {
-            let prevIndex = (currentIndex - 1 + products.length) % products.length;
-            showProduct(prevIndex, 'left');
-        });
-
-        indicators.forEach((ind, i) => {
-            ind.addEventListener('click', () => {
-                let direction = i > currentIndex ? 'right' : 'left';
-                showProduct(i, direction);
-            });
-        });
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        imageBox.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        imageBox.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, {passive: true});
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 35) {
-                let nextIndex = (currentIndex + 1) % products.length;
-                showProduct(nextIndex, 'right');
-            }
-            if (touchEndX > touchStartX + 35) {
-                let prevIndex = (currentIndex - 1 + products.length) % products.length;
-                showProduct(prevIndex, 'left');
-            }
-        }
-
-        // Initial setup
-        updateProductView(products[0]);
-    </script>
-</body>
-</html>
+            let nextIndex 
