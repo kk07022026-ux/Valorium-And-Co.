@@ -1,254 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALORIUM | Luxury Fragrances & Oud</title>
+    
+    <!-- Instant Ultra-Fast Asset Preloading -->
+    <link rel="preload" as="image" href="10mll.png">
+    <link rel="preload" as="image" href="30mll.png">
+    <link rel="preload" as="image" href="50mll.png">
+    <link rel="preload" as="image" href="bg-luxury.jpg">
 
-<script>
-(() => {
-    const phoneNo = "918982687911";
-
-    const $ = (id) => document.getElementById(id);
-
-    const productImg = $("productImg");
-    const productTitle = $("productTitle");
-    const priceBox = $("priceBoxContainer");
-    const offerCard = $("offerCardContainer");
-    const offerText = $("offerText");
-    const savingsText = $("savingsText");
-    const productDesc = $("productDesc");
-    const waButton = $("waButton");
-    const miniOfferWaBtn = $("miniOfferWaBtn");
-    const prevBtn = $("prevBtn");
-    const nextBtn = $("nextBtn");
-    const imageBox = $("imageBox");
-    const indicators = document.querySelectorAll(".indicator");
-
-    const products = [
-        {
-            name: "French Oud Blanc (10ml)",
-            volume: "10 ml",
-            price: 149,
-            original: 199,
-            offerTotal: 298,
-            savings: 149,
-            type: "price",
-            img: "10mll.png",
-            desc: "Discover French-inspired White Oud with a smooth, elegant aroma and a versatile unisex fragrance experience."
-        },
-        {
-            name: "French Oud Blanc (30ml)",
-            volume: "30 ml",
-            price: 269,
-            original: 349,
-            offerTotal: 538,
-            savings: 269,
-            type: "price",
-            img: "30mll.png",
-            desc: "Experience French-inspired White Oud in a generous size, designed for an elegant and refreshing everyday fragrance experience."
-        },
-        {
-            name: "French Oud Blanc (50ml Royale)",
-            volume: "50 ml",
-            type: "coming-soon",
-            img: "50mll.png",
-            desc: "Meet the upcoming Royale edition of French Oud Blanc. Contact us on WhatsApp for launch updates."
-        }
-    ];
-
-    let currentIndex = 0;
-    let startX = 0;
-    let startY = 0;
-
-    // Open WhatsApp with a pre-filled message.
-    // The customer must press Send themselves.
-    function openWhatsApp(message) {
-        const url =
-            "https://wa.me/" + phoneNo +
-            "?text=" + encodeURIComponent(message);
-
-        window.open(url, "_blank");
-    }
-
-    function getOrderMessage(product) {
-        return [
-            "Hello Valorium & Co. 👋",
-            "",
-            "I want to order French Oud Blanc.",
-            "Variant: " + product.volume,
-            "Price: ₹" + product.price,
-            "",
-            "Please confirm availability, delivery charges and payment details.",
-            "",
-            "Thank you!"
-        ].join("\n");
-    }
-
-    function getOfferMessage(product) {
-        return [
-            "Hello Valorium & Co. 👋",
-            "",
-            "I want to claim your BUY 2 GET 1 FREE offer.",
-            "Product: French Oud Blanc (" + product.volume + ")",
-            "Quantity: 3 bottles",
-            "Offer total: ₹" + product.offerTotal,
-            "Saving: ₹" + product.savings,
-            "",
-            "Please confirm availability, delivery charges and payment details.",
-            "",
-            "Thank you!"
-        ].join("\n");
-    }
-
-    function updateProductView() {
-        const product = products[currentIndex];
-
-        productTitle.textContent = product.name;
-        productDesc.textContent = product.desc;
-        productImg.alt = product.name;
-        productImg.src = product.img;
-
-        // Reset the image animation when the product changes.
-        productImg.classList.remove(
-            "slide-out-left",
-            "slide-out-right"
-        );
-
-        if (product.type === "coming-soon") {
-            priceBox.innerHTML =
-                '<span class="coming-soon-text">Coming Soon</span>';
-
-            offerCard.style.display = "none";
-            waButton.innerHTML =
-                '<i class="fab fa-whatsapp"></i> Get Launch Updates';
-
-        } else {
-            priceBox.innerHTML = `
-                <span class="original-price">
-                    ₹${product.original}
-                </span>
-                <span class="discount-badge">
-                    Special Price
-                </span>
-                <span class="current-price">
-                    ₹${product.price}/-
-                </span>
-            `;
-
-            offerCard.style.display = "block";
-
-            offerText.textContent =
-                `BUY 2 GET 1 FREE (Get 3 Bottles @ ₹${product.offerTotal}/-)`;
-
-            savingsText.innerHTML =
-                `<i class="fas fa-check-circle"></i> Total Saving: ₹${product.savings}`;
-
-            waButton.innerHTML =
-                '<i class="fab fa-whatsapp"></i> Order via WhatsApp';
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #0a0a0a;
+            --bg-card: #141414;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: rgba(212, 175, 55, 0.25);
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        // Update carousel indicators.
-        indicators.forEach((dot, index) => {
-            dot.classList.toggle("active", index === currentIndex);
-            dot.setAttribute(
-                "aria-current",
-                index === currentIndex ? "true" : "false"
-            );
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 5%;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 42vh;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(rgba(10, 10, 10, 0.65), rgba(10, 10, 10, 0.9)), url('bg-luxury.jpg') no-repeat center center/cover;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 0.85rem;
+            color: #d1d1d1;
+            max-width: 500px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .btn-luxury {
+            background: transparent;
+            color: #fff;
+            padding: 10px 25px;
+            border: 1px solid var(--gold);
+            text-decoration: none;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .btn-luxury:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* Section Layout */
+        .section {
+            padding: 25px 4%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.9rem;
+            color: var(--gold);
+            margin-bottom: 4px;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Showcase Container */
+        .single-product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            background: radial-gradient(circle at center, #1c1810 0%, #141414 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.1);
+            position: relative;
+            touch-action: pan-y;
+        }
+
+        /* Product Image Box */
+        .image-box {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background: radial-gradient(circle, #241e12 0%, #0a0a0a 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-static-img {
+            max-height: 85%;
+            max-width: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.8));
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Fast Slide Animation */
+        .slide-out-left {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .slide-out-right {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .product-details {
+            transition: opacity 0.18s ease;
+        }
+
+        .product-details h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* Price Box */
+        .price-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .original-price {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .current-price {
+            font-size: 1.35rem;
+            color: var(--gold-light);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .coming-soon-text {
+            font-size: 1.4rem;
+            color: var(--gold);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Offer Card */
+        .offer-card {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px dashed var(--gold);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .offer-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .offer-title-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.68rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .mini-wa-btn {
+            background-color: #25d366;
+            color: #000;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+            white-space: nowrap;
+        }
+
+        .offer-details {
+            font-size: 0.82rem;
+            color: #ffffff;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .savings-highlight {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: #25d366;
+            font-weight: 600;
+        }
+
+        .product-details p.description {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 12px;
+        }
+
+        .arrow-btn {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .arrow-btn:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .indicators {
+            display: flex;
+            gap: 6px;
+        }
+
+        .indicator {
+            width: 22px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: var(--gold);
+            width: 36px;
+        }
+
+        /* Primary WhatsApp Button */
+        .whatsapp-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #25d366;
+            padding: 13px 18px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            font-size: 0.78rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #25d366;
+            color: #000;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn.disabled {
+            border-color: #444;
+            color: #666;
+            pointer-events: none;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #030303;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            border-top: 1px solid var(--border-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        footer span {
+            color: var(--gold);
+        }
+
+        /* Mobile Layout Adjustments */
+        @media (max-width: 968px) {
+            .hero { height: 38vh; min-height: 220px; }
+            .hero h1 { font-size: 1.8rem; }
+            .section { padding: 18px 3%; }
+            .single-product-container {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 16px;
+            }
+            .image-box { height: 260px; }
+            .product-details h3 { font-size: 1.3rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">VALORIUM</a>
+        <nav>
+            <a href="#product">Collection</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Wear Your Presence</h1>
+        <p>Experience the pure essence of luxury with our exclusive artisanal fragrances.</p>
+        <a href="#product" class="btn-luxury">Discover Masterpiece</a>
+    </section>
+
+    <!-- Single Product Section -->
+    <section class="section" id="product">
+        <h2 class="section-title">French Oud Blanc</h2>
+        <p class="section-subtitle">Swipe or use arrows to explore volume variants</p>
+        
+        <div class="single-product-container" id="sliderContainer">
+            <!-- Product Image Display Box -->
+            <div class="image-box" id="imageBox">
+                <img src="10mll.png" alt="French Oud Blanc" class="product-static-img" id="productImg">
+            </div>
+
+            <!-- Product Details & Controls -->
+            <div class="product-details" id="productDetailsBox">
+                <h3 id="productTitle">French Oud Blanc (10ml)</h3>
+                
+                <!-- Pricing Area -->
+                <div class="price-box" id="priceBoxContainer">
+                    <span class="original-price" id="originalPrice">₹199</span>
+                    <span class="discount-badge" id="discountBadge">30% OFF</span>
+                    <span class="current-price" id="currentPrice">₹149/-</span>
+                </div>
+
+                <!-- Buy 2 Get 1 Free Offer Card -->
+                <div id="offerCardContainer" class="offer-card">
+                    <div class="offer-header-row">
+                        <div class="offer-title-badge">
+                            <i class="fas fa-fire"></i> Special Offer
+                        </div>
+                        <a href="#" target="_blank" class="mini-wa-btn" id="miniOfferWaBtn">
+                            <i class="fab fa-whatsapp"></i> Claim Offer
+                        </a>
+                    </div>
+                    <div class="offer-details" id="offerText">
+                        BUY 2 GET 1 FREE (Get 3 Bottles @ ₹298/-)
+                    </div>
+                    <div class="savings-highlight" id="savingsText">
+                        <i class="fas fa-check-circle"></i> Aapki Total Bachat: ₹149/- FREE
+                    </div>
+                </div>
+
+                <p class="description" id="productDesc">All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.</p>
+                
+                <!-- Controls -->
+                <div class="carousel-controls">
+                    <button class="arrow-btn" id="prevBtn" type="button"><i class="fas fa-chevron-left"></i></button>
+                    <div class="indicators">
+                        <span class="indicator active" data-index="0"></span>
+                        <span class="indicator" data-index="1"></span>
+                        <span class="indicator" data-index="2"></span>
+                    </div>
+                    <button class="arrow-btn" id="nextBtn" type="button"><i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <a href="#" target="_blank" class="whatsapp-btn" id="waButton">
+                    <i class="fab fa-whatsapp"></i> Order Single Bottle
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
+    </footer>
+
+    <!-- Robust Logic Script -->
+    <script>
+        // Exact Client WhatsApp Phone Number
+        const phoneNo = "918982687911";
+
+        const productImg = document.getElementById('productImg');
+        const productTitle = document.getElementById('productTitle');
+        const priceBoxContainer = document.getElementById('priceBoxContainer');
+        const offerCardContainer = document.getElementById('offerCardContainer');
+        const offerText = document.getElementById('offerText');
+        const savingsText = document.getElementById('savingsText');
+        const productDesc = document.getElementById('productDesc');
+        const productDetailsBox = document.getElementById('productDetailsBox');
+        const waButton = document.getElementById('waButton');
+        const miniOfferWaBtn = document.getElementById('miniOfferWaBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        const sliderContainer = document.getElementById('sliderContainer');
+
+        // Products Catalog Array
+        const products = [
+            {
+                name: "French Oud Blanc (10ml)",
+                type: "price",
+                orig: "₹199",
+                price: "₹149/-",
+                offer: "BUY 2 GET 1 FREE (Get 3 Bottles @ ₹298/-)",
+                savings: "Aapki Total Bachat: ₹149/- FREE",
+                desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
+                img: "10mll.png"
+            },
+            {
+                name: "French Oud Blanc (30ml)",
+                type: "price",
+                orig: "₹349",
+                price: "₹269/-",
+                offer: "BUY 2 GET 1 FREE (Get 3 Bottles @ ₹538/-)",
+                savings: "Aapki Total Bachat: ₹269/- FREE",
+                desc: "All new refreshing French-based White Oud featuring a very fine concentration, long-lasting performance, natural aroma, and a versatile unisex formulation.",
+                img: "30mll.png"
+            },
+            {
+                name: "French Oud Blanc (50ml Royale)",
+                type: "coming-soon",
+                desc: "The ultimate connoisseur edition. Generous volume of our purest formulation designed with a majestic crystal cap for true luxury collectors.",
+                img: "50mll.png"
+            }
+        ];
+
+        // Background Pre-caching images
+        products.forEach(prod => {
+            const i = new Image();
+            i.src = prod.img;
         });
-    }
 
-    function changeProduct(direction) {
-        currentIndex =
-            (currentIndex + direction + products.length) %
-            products.length;
+        let currentIndex = 0;
 
-        updateProductView();
-    }
+        function updateProductView(prod) {
+            productTitle.innerText = prod.name;
+            productDesc.innerText = prod.desc;
+            productImg.src = prod.img;
 
-    // Previous and next arrows.
-    prevBtn.addEventListener("click", () => changeProduct(-1));
-    nextBtn.addEventListener("click", () => changeProduct(1));
+            if (prod.type === "coming-soon") {
+                priceBoxContainer.innerHTML = `<span class="coming-soon-text">Coming Soon</span>`;
+                offerCardContainer.style.display = "none";
+                waButton.innerHTML = `<i class="fas fa-clock"></i> Launching Soon`;
+                waButton.classList.add('disabled');
+                waButton.removeAttribute('href');
+            } else {
+                priceBoxContainer.innerHTML = `
+                    <span class="original-price">${prod.orig}</span>
+                    <span class="discount-badge">30% OFF</span>
+                    <span class="current-price">${prod.price}</span>
+                `;
+                offerText.innerText = prod.offer;
+                savingsText.innerHTML = `<i class="fas fa-check-circle"></i> ${prod.savings}`;
+                offerCardContainer.style.display = "block";
+                
+                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Order Single Bottle`;
+                waButton.classList.remove('disabled');
 
-    // Click any indicator to open its product.
-    indicators.forEach((dot, index) => {
-        dot.style.cursor = "pointer";
+                // Build Direct WhatsApp Links
+                const singleMsg = encodeURIComponent(`Hello VALORIUM, I want to order 1 bottle of ${prod.name} at ${prod.price}.`);
+                waButton.href = `https://wa.me/${phoneNo}?text=${singleMsg}`;
 
-        dot.addEventListener("click", () => {
-            currentIndex = index;
-            updateProductView();
+                const offerMsg = encodeURIComponent(`Hello VALORIUM, I want to claim the Special Offer: ${prod.offer} for ${prod.name}. Please confirm my order.`);
+                miniOfferWaBtn.href = `https://wa.me/${phoneNo}?text=${offerMsg}`;
+            }
+        }
+
+        function showProduct(index, direction = 'right') {
+            productImg.classList.add(direction === 'right' ? 'slide-out-left' : 'slide-out-right');
+            productDetailsBox.style.opacity = '0';
+
+            setTimeout(() => {
+                currentIndex = index;
+                const prod = products[currentIndex];
+
+                updateProductView(prod);
+
+                indicators.forEach((ind, i) => {
+                    ind.classList.toggle('active', i === currentIndex);
+                });
+
+                productImg.classList.remove('slide-out-left', 'slide-out-right');
+                productDetailsBox.style.opacity = '1';
+            }, 140);
+        }
+
+        // Arrow Listeners
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let nextIndex = (currentIndex + 1) % products.length;
+            showProduct(nextIndex, 'right');
         });
-    });
 
-    // Touch swipe for mobile.
-    imageBox.addEventListener("touchstart", (event) => {
-        if (event.touches.length !== 1) return;
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let prevIndex = (currentIndex - 1 + products.length) % products.length;
+            showProduct(prevIndex, 'left');
+        });
 
-        startX = event.touches[0].clientX;
-        startY = event.touches[0].clientY;
-    }, { passive: true });
+        // Indicator Dots Listeners
+        indicators.forEach((ind, i) => {
+            ind.addEventListener('click', () => {
+                let direction = i > currentIndex ? 'right' : 'left';
+                showProduct(i, direction);
+            });
+        });
 
-    imageBox.addEventListener("touchend", (event) => {
-        if (event.changedTouches.length !== 1) return;
+        // Universal Mobile Touch Swipe Handler (Assigned to whole Card Container)
+        let touchStartX = 0;
+        let touchStartY = 0;
 
-        const endX = event.changedTouches[0].clientX;
-        const endY = event.changedTouches[0].clientY;
-        const diffX = endX - startX;
-        const diffY = endY - startY;
+        sliderContainer.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
 
-        // Ignore vertical scrolling and tiny movements.
-        if (Math.abs(diffX) < 45 ||
-            Math.abs(diffX) < Math.abs(diffY)) {
-            return;
-        }
+        sliderContainer.addEventListener('touchend', function(e) {
+            let touchEndX = e.changedTouches[0].clientX;
+            let touchEndY = e.changedTouches[0].clientY;
 
-        changeProduct(diffX < 0 ? 1 : -1);
-    }, { passive: true });
+            let diffX = touchStartX - touchEndX;
+            let diffY = touchStartY - touchEndY;
 
-    // Desktop mouse drag support.
-    let mouseStartX = 0;
-    let isDragging = false;
+            // Trigger swipe if horizontal motion is > 20px
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
+                if (diffX > 0) {
+                    let nextIndex = (currentIndex + 1) % products.length;
+                    showProduct(nextIndex, 'right');
+                } else {
+                    let prevIndex = (currentIndex - 1 + products.length) % products.length;
+                    showProduct(prevIndex, 'left');
+                }
+            }
+        }, {passive: true});
 
-    imageBox.addEventListener("mousedown", (event) => {
-        mouseStartX = event.clientX;
-        isDragging = true;
-    });
-
-    imageBox.addEventListener("mouseup", (event) => {
-        if (!isDragging) return;
-        isDragging = false;
-
-        const diffX = event.clientX - mouseStartX;
-
-        if (Math.abs(diffX) >= 50) {
-            changeProduct(diffX < 0 ? 1 : -1);
-        }
-    });
-
-    imageBox.addEventListener("mouseleave", () => {
-        isDragging = false;
-    });
-
-    // Main WhatsApp order / launch enquiry button.
-    waButton.addEventListener("click", () => {
-        const product = products[currentIndex];
-
-        if (product.type === "coming-soon") {
-            openWhatsApp(
-                "Hello Valorium & Co. 👋\n\n" +
-                "I am interested in French Oud Blanc Royale (50ml).\n" +
-                "Please notify me when it launches."
-            );
-            return;
-        }
-
-        openWhatsApp(getOrderMessage(product));
-    });
-
-    // Claim offer button.
-    miniOfferWaBtn.addEventListener("click", () => {
-        const product = products[currentIndex];
-
-        if (product.type === "coming-soon") return;
-
-        openWhatsApp(getOfferMessage(product));
-    });
-
-    // Initial display.
-    updateProductView();
-})();
-</script>
+        // Initial View Render
+        updateProductView(products[0]);
+    </script>
+</body>
+</html>
