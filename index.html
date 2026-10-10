@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VALORIUM | Luxury Fragrances & Oud</title>
     
-    <!-- Instant Ultra-Fast Asset Preloading -->
-    <link rel="preload" as="image" href="10mll.png">
-    <link rel="preload" as="image" href="30mll.png">
-    <link rel="preload" as="image" href="50mll.png">
-    <link rel="preload" as="image" href="bg-luxury.jpg">
+    <!-- High Priority Resource Hints & Preloading -->
+    <link rel="preload" as="image" href="bg-luxury.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="10mll.png" fetchpriority="high">
+    <link rel="preload" as="image" href="30mll.png" fetchpriority="high">
+    <link rel="preload" as="image" href="50mll.png" fetchpriority="high">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
             --text-main: #ffffff;
             --text-muted: #888888;
             --border-color: rgba(212, 175, 55, 0.25);
-            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -78,7 +78,7 @@
             letter-spacing: 2px;
         }
 
-        /* Hero Section */
+        /* Hero Section with GPU Acceleration */
         .hero {
             height: 42vh;
             min-height: 250px;
@@ -90,6 +90,8 @@
             padding: 0 20px;
             background: linear-gradient(rgba(10, 10, 10, 0.65), rgba(10, 10, 10, 0.9)), url('bg-luxury.jpg') no-repeat center center/cover;
             position: relative;
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         .hero h1 {
@@ -164,7 +166,7 @@
             touch-action: pan-y;
         }
 
-        /* Product Image Box */
+        /* Product Image Box with Instant Rendering */
         .image-box {
             position: relative;
             width: 100%;
@@ -176,6 +178,7 @@
             justify-content: center;
             align-items: center;
             border: 1px solid var(--border-color);
+            transform: translateZ(0);
         }
 
         .product-static-img {
@@ -183,24 +186,25 @@
             max-width: 85%;
             object-fit: contain;
             filter: drop-shadow(0 12px 20px rgba(0,0,0,0.8));
-            transition: opacity 0.18s ease, transform 0.18s ease;
+            transition: opacity 0.12s ease, transform 0.12s ease;
             user-select: none;
             -webkit-user-drag: none;
+            will-change: opacity, transform;
         }
 
         /* Fast Slide Animation */
         .slide-out-left {
             opacity: 0;
-            transform: translateX(-20px);
+            transform: translateX(-15px);
         }
 
         .slide-out-right {
             opacity: 0;
-            transform: translateX(20px);
+            transform: translateX(15px);
         }
 
         .product-details {
-            transition: opacity 0.18s ease;
+            transition: opacity 0.12s ease;
         }
 
         .product-details h3 {
@@ -514,9 +518,8 @@
         <p>&copy; 2026 <span>VALORIUM & CO.</span> All Rights Reserved.</p>
     </footer>
 
-    <!-- Robust Logic Script -->
+    <!-- Instant Preload & Rendering Script -->
     <script>
-        // Exact Client WhatsApp Phone Number
         const phoneNo = "918982687911";
 
         const productImg = document.getElementById('productImg');
@@ -534,7 +537,6 @@
         const indicators = document.querySelectorAll('.indicator');
         const sliderContainer = document.getElementById('sliderContainer');
 
-        // Products Catalog Array
         const products = [
             {
                 name: "French Oud Blanc (10ml)",
@@ -564,13 +566,18 @@
             }
         ];
 
-        // Background Pre-caching images
+        // Immediate background caching & decoding
         products.forEach(prod => {
-            const i = new Image();
-            i.src = prod.img;
+            const img = new Image();
+            img.src = prod.img;
+            if (img.decode) {
+                img.decode().catch(() => {});
+            }
         });
 
         let currentIndex = 0;
+        let currentSingleMsg = "";
+        let currentOfferMsg = "";
 
         function updateProductView(prod) {
             productTitle.innerText = prod.name;
@@ -593,88 +600,4 @@
                 savingsText.innerHTML = `<i class="fas fa-check-circle"></i> ${prod.savings}`;
                 offerCardContainer.style.display = "block";
                 
-                waButton.innerHTML = `<i class="fab fa-whatsapp"></i> Order Single Bottle`;
-                waButton.classList.remove('disabled');
-
-                // Build Direct WhatsApp Links
-                const singleMsg = encodeURIComponent(`Hello VALORIUM, I want to order 1 bottle of ${prod.name} at ${prod.price}.`);
-                waButton.href = `https://wa.me/${phoneNo}?text=${singleMsg}`;
-
-                const offerMsg = encodeURIComponent(`Hello VALORIUM, I want to claim the Special Offer: ${prod.offer} for ${prod.name}. Please confirm my order.`);
-                miniOfferWaBtn.href = `https://wa.me/${phoneNo}?text=${offerMsg}`;
-            }
-        }
-
-        function showProduct(index, direction = 'right') {
-            productImg.classList.add(direction === 'right' ? 'slide-out-left' : 'slide-out-right');
-            productDetailsBox.style.opacity = '0';
-
-            setTimeout(() => {
-                currentIndex = index;
-                const prod = products[currentIndex];
-
-                updateProductView(prod);
-
-                indicators.forEach((ind, i) => {
-                    ind.classList.toggle('active', i === currentIndex);
-                });
-
-                productImg.classList.remove('slide-out-left', 'slide-out-right');
-                productDetailsBox.style.opacity = '1';
-            }, 140);
-        }
-
-        // Arrow Listeners
-        nextBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            let nextIndex = (currentIndex + 1) % products.length;
-            showProduct(nextIndex, 'right');
-        });
-
-        prevBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            let prevIndex = (currentIndex - 1 + products.length) % products.length;
-            showProduct(prevIndex, 'left');
-        });
-
-        // Indicator Dots Listeners
-        indicators.forEach((ind, i) => {
-            ind.addEventListener('click', () => {
-                let direction = i > currentIndex ? 'right' : 'left';
-                showProduct(i, direction);
-            });
-        });
-
-        // Universal Mobile Touch Swipe Handler (Assigned to whole Card Container)
-        let touchStartX = 0;
-        let touchStartY = 0;
-
-        sliderContainer.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, {passive: true});
-
-        sliderContainer.addEventListener('touchend', function(e) {
-            let touchEndX = e.changedTouches[0].clientX;
-            let touchEndY = e.changedTouches[0].clientY;
-
-            let diffX = touchStartX - touchEndX;
-            let diffY = touchStartY - touchEndY;
-
-            // Trigger swipe if horizontal motion is > 20px
-            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 20) {
-                if (diffX > 0) {
-                    let nextIndex = (currentIndex + 1) % products.length;
-                    showProduct(nextIndex, 'right');
-                } else {
-                    let prevIndex = (currentIndex - 1 + products.length) % products.length;
-                    showProduct(prevIndex, 'left');
-                }
-            }
-        }, {passive: true});
-
-        // Initial View Render
-        updateProductView(products[0]);
-    </script>
-</body>
-</html>
+   
